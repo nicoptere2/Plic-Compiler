@@ -4,5 +4,7 @@ import plicCompiler.arbreAbstrait.ArbreAbstrait;
 
 
 public class Expression extends ArbreAbstrait {
-
+	public Expression() {
+		
+	}
 }

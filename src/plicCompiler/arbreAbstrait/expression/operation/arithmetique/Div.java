@@ -2,9 +2,9 @@ package plicCompiler.arbreAbstrait.expression.operation.arithmetique;
 
 import plicCompiler.arbreAbstrait.expression.Expression;
 
-public class Mul extends OperationArithmetique {
+public class Div extends OperationArithmetique {
 
-	public Mul() {
+	public Div() {
 		// TODO Auto-generated constructor stub
 	}
 

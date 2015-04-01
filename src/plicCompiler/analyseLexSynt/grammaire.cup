@@ -1,7 +1,21 @@
-package toucan.model.compilation.analyse ;
+package plicCompiler.analyseLexSynt ;
 
 import java_cup.runtime.*;
-import toucan.model.compilation.arbre.*;
+import plicCompiler.analyseLexSynt.*;
+import plicCompiler.arbreAbstrait.ArbreAbstrait;
+import plicCompiler.arbreAbstrait.ArbreAbstrait.*;
+import plicCompiler.arbreAbstrait.expression.Constante;
+import plicCompiler.arbreAbstrait.expression.Expression;
+import plicCompiler.arbreAbstrait.expression.ExpressionNegative;
+import plicCompiler.arbreAbstrait.expression.operation.OperationBinaire;
+import plicCompiler.arbreAbstrait.expression.operation.arithmetique.Add;
+import plicCompiler.arbreAbstrait.expression.operation.arithmetique.Mul;
+import plicCompiler.arbreAbstrait.expression.operation.arithmetique.Sub;
+import plicCompiler.arbreAbstrait.expression.operation.arithmetique.Div;
+import plicCompiler.arbreAbstrait.expression.operation.logique.Equal;
+import plicCompiler.arbreAbstrait.expression.operation.logique.GreaterThan;
+import plicCompiler.arbreAbstrait.expression.operation.logique.LowerThan;
+
 
 action code {: /* vide pour le moment */
 	    :} ;
@@ -79,9 +93,11 @@ terminal String 	CSTE;
    integer value are listed.  An object value means that it can be any type, it isn't set to a 
    specific type.  So it could be an Integer or a String or whatever. */
 
-non terminal ArbreAbstrait	PROG, EXP, OPER;
+non terminal ArbreAbstrait		PROG;
+non terminal Expression			EXP;
+non terminal OperationBinaire	OPER;
 
-precedence left OPER ;
+precedence left PLUS, MINUS, MUL, DIV, SUP, INF, EQUAL, DIFF;
 
 /* ----------------------------Grammar Section-------------------- */
 
@@ -90,30 +106,52 @@ start with PROG ;
 PROG 	::=		EXP POINTVIRGULE
 		;
 
-EXP 	::=		CSTE 
-					{: System.out.println("il y a une constante"); :}
-		|		PAROUV EXP PARFER 
-					{: System.out.println("il y a une expression parentesé"); :}
-		|		EXP OPER EXP 
-					{: System.out.println("il y a une expression avec operation"); :}
-		|		MINUS EXP 
-					{: System.out.println("il y a une expression negative"); :}
+EXP 	::=		CSTE:c
+					{:
+						RESULT = new Constante(c); 
+					:}
+		|		PAROUV EXP:e PARFER
+					{:
+						RESULT = new Expression(e);
+					:}
+		|		MINUS EXP
+					{:
+						RESULT = new ExpressionNegative(e);
+					:}
+		|		EXP:eg OPER:o EXP:ed
+					{:
+						o.setOperandeGauche(eg);
+						o.setOperandeDroite(ed);
+						RESULT = o;
+					:}
 		;
 
-OPER 	::=		PLUS 	
-					{: System.out.println("il y a une ADD"); :}
-		|		MINUS 	
-					{: System.out.println("il y a une SUB"); :}
-		|		MUL 	
-					{: System.out.println("il y a une MUL"); :}
-		|		DIV 	
-					{: System.out.println("il y a une DIV"); :}
-		|		SUP 	
-					{: System.out.println("il y a une SUP"); :}
-		|		INF 	
-					{: System.out.println("il y a une INF"); :}
-		|		EQUAL 	
-					{: System.out.println("il y a une EQUAL"); :}
-		|		DIFF 	
-					{: System.out.println("il y a une DIFF"); :}
+OPER 	::=		PLUS
+					{:
+						RESULT = new Add();
+					:}
+		|		MINUS
+					{:
+						RESULT = new Sub();
+					:}
+		|		MUL
+					{:
+						RESULT = new Mul();
+					:}
+		|		DIV
+					{:
+						RESULT = new Div();
+					:}
+		|		SUP
+					{:
+						RESULT = new GreaterThan();
+					:}
+		|		INF
+					{:
+						RESULT = new LowerThan();
+					:}
+		|		EQUAL
+					{:
+						RESULT = new Equal();
+					:}
 		;

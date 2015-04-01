@@ -37,7 +37,12 @@ equal	= ==
 diff	= !=
 inf		= <
 sup		= >
-op		= \+|\-|\*|\/
+
+plus	= \+
+minus	= -
+mul		= \*
+div		= \/
+
 
 %%
 
@@ -48,15 +53,21 @@ op		= \+|\-|\*|\/
 
 {parfer}					{ return symbol(CodesLexicaux.PARFER); }
 
-{equal}						{ return symbol(CodesLexicaux.EGAL); }
+{equal}						{ return symbol(CodesLexicaux.EQUAL); }
 
-{diff}						{ return symbol(CodesLexicaux.DIFF); }
+{inf}						{ return symbol(CodesLexicaux.INF); }
 
-{inf}						{ return symbol(CodeLexicaux.INF); }
+{sup}						{ return symbol(CodesLexicaux.SUP); }
 
-{sup}						{ return symbol(CodeLexicaux.SUP)}
+{plus}						{ return symbol(CodesLexicaux.PLUS); }
 
-{op}						{ return symbol(CodesLexicaux.OP, yytext()); }
+{minus}						{ return symbol(CodesLexicaux.MINUS); }
+
+{mul}						{ return symbol(CodesLexicaux.MUL); }
+
+{div}						{ return symbol(CodesLexicaux.DIV); }
+
+
 
 
 
