@@ -52,8 +52,10 @@ public class PlicCompiler {
 
 	private void compiler(String code) {
 		AnalyseurSyntaxique analyser = new AnalyseurSyntaxique(new AnalyseurLexical(new StringReader(code)));
+		ArbreAbstrait arberAbstrait = null;
 		try {
-			ArbreAbstrait arberAbstrait =  (ArbreAbstrait) analyser.parse().value;
+			arberAbstrait =  (ArbreAbstrait) analyser.parse().value;
+			System.out.println(arberAbstrait.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Erreur Analyse LexSynt");

@@ -1,11 +1,14 @@
 package plicCompiler.arbreAbstrait.expression.operation.logique;
 
-import plicCompiler.arbreAbstrait.expression.Expression;
-
 public class GreaterThan extends OperationLogique {
 
 	public GreaterThan() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public String toString() {
+		return this.operandeGauche + ">" + this.operandeDroite;
 	}
 
 }

@@ -2,7 +2,7 @@ package plicCompiler.arbreAbstrait.expression.operation;
 
 import plicCompiler.arbreAbstrait.expression.Expression;
 
-public class OperationBinaire extends Expression{
+public abstract class OperationBinaire extends Expression{
 	protected Expression operandeGauche;
 	protected Expression operandeDroite;
 	
@@ -17,5 +17,8 @@ public class OperationBinaire extends Expression{
 	public void setOperandeDroite(Expression operandeDroite) {
 		this.operandeDroite = operandeDroite;
 	}
+
+	@Override
+	public abstract String toString();
 
 }

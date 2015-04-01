@@ -103,7 +103,10 @@ precedence left PLUS, MINUS, MUL, DIV, SUP, INF, EQUAL, DIFF;
 
 start with PROG ;
 
-PROG 	::=		EXP POINTVIRGULE
+PROG 	::=		EXP:e POINTVIRGULE
+					{:
+						RESULT = e;
+					:}
 		;
 
 EXP 	::=		CSTE:c
@@ -114,7 +117,7 @@ EXP 	::=		CSTE:c
 					{:
 						RESULT = new Expression(e);
 					:}
-		|		MINUS EXP
+		|		MINUS EXP:e
 					{:
 						RESULT = new ExpressionNegative(e);
 					:}
