@@ -4,7 +4,24 @@ import plicCompiler.arbreAbstrait.ArbreAbstrait;
 
 
 public class Expression extends ArbreAbstrait {
-	public Expression() {
-		
+	
+	private Expression exp;
+	
+	public Expression(){
 	}
+	
+	public Expression(Expression e){
+		this.exp = e;
+	}
+	
+	@Override
+	public String toString() {
+		return exp.toString();
+	}
+
+	@Override
+	public String toCode() {
+		return exp.toCode();
+	}
+	
 }
