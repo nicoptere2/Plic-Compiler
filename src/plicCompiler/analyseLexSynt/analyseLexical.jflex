@@ -31,8 +31,6 @@ import java_cup.runtime.*;
 
 number = [0-9]
 
-parouv 	= \(
-parfer	= \)
 equal	= ==
 diff	= !=
 inf		= <
@@ -40,8 +38,12 @@ sup		= >
 
 plus	= \+
 minus	= -
+
 mul		= \*
 div		= \/
+
+parouv 	= \(
+parfer	= \)
 
 
 %%

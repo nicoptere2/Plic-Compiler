@@ -9,8 +9,6 @@ import java.io.FileReader;
 import java.io.StringReader;
 import java.io.IOException;
 
-import java_cup.runtime.Symbol;
-
 import plicCompiler.analyseLexSynt.AnalyseurLexical;
 import plicCompiler.analyseLexSynt.AnalyseurSyntaxique;
 import plicCompiler.arbreAbstrait.ArbreAbstrait;

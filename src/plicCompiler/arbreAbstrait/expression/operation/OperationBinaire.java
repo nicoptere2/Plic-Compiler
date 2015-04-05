@@ -10,6 +10,11 @@ public abstract class OperationBinaire extends Expression{
 
 	}
 
+	public OperationBinaire(Expression e1, Expression e2) {
+		this.operandeGauche = e1;
+		this.operandeDroite = e2;
+	}
+
 	public void setOperandeGauche(Expression operandeGauche) {
 		this.operandeGauche = operandeGauche;
 	}

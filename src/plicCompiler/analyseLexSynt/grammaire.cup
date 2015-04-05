@@ -93,110 +93,46 @@ terminal String 	CSTE;
    integer value are listed.  An object value means that it can be any type, it isn't set to a 
    specific type.  So it could be an Integer or a String or whatever. */
 
-non terminal ArbreAbstrait		PROG;
-non terminal Expression			EXPNONPRIO;
-non terminal Expression			EXP;
-non terminal Expression			EXPARITHM;
-non terminal Expression			EXPPRIO;
-non terminal OperationBinaire	OPERPRIO;
-non terminal OperationBinaire	OPERNONPRIO;
-non terminal OperationBinaire	F;
-non terminal OperationBinaire	OPER;
+non terminal ArbreAbstrait PROG;
+non terminal Expression EXPR;
 
-precedence right PLUS, MINUS, MUL, DIV, SUP, INF, EQUAL, DIFF;
+precedence left PLUS, MINUS;
+precedence left MUL, DIV;
 
 /* ----------------------------Grammar Section-------------------- */
 
-start with PROG ;
+start with PROG;
 
-PROG 	::=		EXPPRIO:e POINTVIRGULE
-					{:
-						RESULT = e;
-					:}
-		;
+PROG ::= EXPR:e POINTVIRGULE
+				{:
+					RESULT = e;
+				:}
+         ;
 
-EXP 	::=		CSTE:c
-					{:
-						RESULT = new Constante(c); 
-					:}
-		|		PAROUV EXP:e PARFER
-					{:
-						RESULT = new Expression(e);
-					:}
-		|		MINUS EXP:e
-					{:
-						RESULT = new ExpressionNegative(e);
-					:}
-		|		EXPARITHM:e
-					{:
-						RESULT = e;
-					:}
-		;
-		
-EXPARITHM	::=	EXPNONPRIO:e
-					{:
-						RESULT = e;		
-					:}
-			|	EXPARITHM:e1 OPER EXPNONPRIO:e
-					{:
-						o.setOperandeGauche(e1);
-						o.setOperandeDroite(e2);
-						RESULT o;
-					:}
-			;
-		
-EXPNONPRIO	::=	F:f
-					{:
-						RESULT = f;
-					:}
-			|	EXPNONPRIO:e1 OPERPRIO:o EXPNONPRIO:e2
-					{:
-						o.setOperandeGauche(e1);
-						o.setOperandeDroite(e2);
-						RESULT o;
-					:}
-			;
-			
-F		::=		CSTE:c
-					{:
-						RESULT = new Constante(c);
-					:}
-		|		EXPARITHM:e
-					{:
-						RESULT = e;
-					:}
-		;
-		
-		
-OPERPRIO	::=	MUL
-					{:
-						RESULT = new Mul();
-					:}
-			|		DIV
-					{:
-						RESULT = new Div();
-					:}
-			;
-		
+        
+EXPR	::=		CSTE:c 
+			    {:
+					RESULT = new Constante(c);
+		        :}
+		|		EXPR:e1 PLUS:o EXPR:e2
+		        {:
+					RESULT = new Add(e1,e2);
+		        :}
+		|		EXPR:e1 MINUS EXPR:e2
+		        {:
+					RESULT = new Sub(e1,e2);
+		        :}
+		|		EXPR:e1 MUL:o EXPR:e2
+		        {:
+					RESULT = new Mul(e1,e2);
+		        :}
+		|		EXPR:e1 DIV:o EXPR:e2
+		        {:
+					RESULT = new Div(e1,e2);
+		        :}
+		|		PAROUV EXPR:e PARFER
+		        {:
+		         	RESULT = e;
+		        :}
 
-OPER 	::=		PLUS
-					{:
-						RESULT = new Add();
-					:}
-		|		MINUS
-					{:
-						RESULT = new Sub();
-					:}
-		|		SUP
-					{:
-						RESULT = new GreaterThan();
-					:}
-		|		INF
-					{:
-						RESULT = new LowerThan();
-					:}
-		|		EQUAL
-					{:
-						RESULT = new Equal();
-					:}
-		;
+         ;

@@ -1,11 +1,16 @@
 package plicCompiler.arbreAbstrait.expression.operation.arithmetique;
 
+import plicCompiler.arbreAbstrait.expression.Expression;
 import plicCompiler.arbreAbstrait.expression.operation.OperationBinaire;
 
 public abstract class OperationArithmetique extends OperationBinaire{
 	public OperationArithmetique() {
 	}
 	
+	public OperationArithmetique(Expression e1, Expression e2) {
+		super(e1, e2);
+	}
+
 	public String toCode() {
 		StringBuilder code = new StringBuilder();
 		
@@ -30,7 +35,7 @@ public abstract class OperationArithmetique extends OperationBinaire{
 		code.append("lw $t8, ($sp)\n");
 		
 		code.append("#Calcule de OperandeGauche @ OperandeDroite (@ => operateur)\n");
-		code.append(this.getInstr() + " $v0, $v0, $t8\n");
+		code.append(this.getInstr() + " $v0, $t8, $v0\n");
 		code.append("\n\n");
 		
 		return code.toString();

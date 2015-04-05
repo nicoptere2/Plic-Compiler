@@ -1,9 +1,11 @@
 package plicCompiler.arbreAbstrait.expression.operation.arithmetique;
 
+import plicCompiler.arbreAbstrait.expression.Expression;
+
 public class Sub extends OperationArithmetique {
 
-	public Sub() {
-		// TODO Auto-generated constructor stub
+	public Sub(Expression e1, Expression e2) {
+		super(e1, e2);
 	}
 
 	@Override
