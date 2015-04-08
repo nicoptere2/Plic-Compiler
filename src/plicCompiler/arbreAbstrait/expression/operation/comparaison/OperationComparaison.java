@@ -1,18 +1,17 @@
-package plicCompiler.arbreAbstrait.expression.operation.arithmetique;
+package plicCompiler.arbreAbstrait.expression.operation.comparaison;
 
 import plicCompiler.arbreAbstrait.expression.Expression;
 import plicCompiler.arbreAbstrait.expression.operation.OperationBinaire;
 
-public abstract class OperationArithmetique extends OperationBinaire{
+public abstract class OperationComparaison extends OperationBinaire{
 	
-	public OperationArithmetique(Expression e1, Expression e2) {
+	public OperationComparaison(Expression e1, Expression e2) {
 		super(e1, e2);
 	}
 
+	@Override
 	public String toCode() {
 		StringBuilder code = new StringBuilder();
-		
-		
 		code.append("#Operation arithmetique!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 		code.append(this.operandeGauche.toCode());
 		code.append("#Chargement Operande gauche dans la pile\n");
@@ -38,6 +37,6 @@ public abstract class OperationArithmetique extends OperationBinaire{
 		
 		return code.toString();
 	}
-
+	
 	protected abstract String getInstr();
 }

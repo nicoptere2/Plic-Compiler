@@ -5,10 +5,6 @@ import plicCompiler.arbreAbstrait.expression.Expression;
 public abstract class OperationBinaire extends Expression{
 	protected Expression operandeGauche;
 	protected Expression operandeDroite;
-	
-	public OperationBinaire() {
-
-	}
 
 	public OperationBinaire(Expression e1, Expression e2) {
 		this.operandeGauche = e1;

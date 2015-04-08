@@ -12,9 +12,10 @@ import plicCompiler.arbreAbstrait.expression.operation.arithmetique.Add;
 import plicCompiler.arbreAbstrait.expression.operation.arithmetique.Mul;
 import plicCompiler.arbreAbstrait.expression.operation.arithmetique.Sub;
 import plicCompiler.arbreAbstrait.expression.operation.arithmetique.Div;
-import plicCompiler.arbreAbstrait.expression.operation.logique.Equal;
-import plicCompiler.arbreAbstrait.expression.operation.logique.GreaterThan;
-import plicCompiler.arbreAbstrait.expression.operation.logique.LowerThan;
+import plicCompiler.arbreAbstrait.expression.operation.comparaison.Equal;
+import plicCompiler.arbreAbstrait.expression.operation.comparaison.GreaterThan;
+import plicCompiler.arbreAbstrait.expression.operation.comparaison.LowerThan;
+import plicCompiler.arbreAbstrait.expression.operation.comparaison.Different;
 
 
 action code {: /* vide pour le moment */
@@ -76,10 +77,10 @@ terminal Symbol		POINTVIRGULE;
 terminal Symbol		PAROUV;
 terminal Symbol		PARFER;
 
-terminal Symbol		EQUAL;
 terminal Symbol		DIFF;
 terminal Symbol		SUP;
 terminal Symbol		INF;
+terminal Symbol		EQUAL;
 
 terminal Symbol		PLUS;
 terminal Symbol		MINUS;
@@ -96,12 +97,11 @@ terminal Symbol		FAUX;
    specific type.  So it could be an Integer or a String or whatever. */
 
 non terminal ArbreAbstrait PROG;
-non terminal Expression EXPR, EXPRBOOL, EXPRARI;
+non terminal Expression EXPR, EXPRBOOL, EXPRARI, EXPRCOMP;
 
-non terminal Expression BOOL;
-
-precedence left PLUS, MINUS;
+precedence left PLUS, MINUS, DIFF, SUP, INF;
 precedence left MUL, DIV;
+precedence left EQUAL;
 
 /* ----------------------------Grammar Section-------------------- */
 
@@ -117,7 +117,7 @@ EXPR	::=		EXPRARI:e
 				{:
 					RESULT = e; 
 				:}
-		|		EXPRBOOL:e
+		|		EXPRCOMP:e
 				{:
 					RESULT = e;
 				:}
@@ -154,31 +154,31 @@ EXPRARI	::=		CSTE:c
 				:}
          ;
          
-EXPRBOOL::=		VRAI
-				{:
-					RESULT = new Constante("1");
-				:}
-		|		FAUX
-				{:
-					RESULT = new Constante("0");
-				:}
-		|		EXPRBOOL:e1 DIFF:o EXPRBOOL:e2
+EXPRCOMP::=		EXPRBOOL:e1 DIFF:o EXPRBOOL:e2
 		        {:
 					RESULT = new Different(e1,e2);
 		        :}
-		|		EXPRBOOL:e1 SUP:o EXPRBOOL:e2
+		|		EXPRARI:e1 DIFF:o EXPRARI:e2
+		        {:
+					RESULT = new Different(e1,e2);
+		        :}
+		|		EXPRARI:e1 SUP:o EXPRARI:e2
 		        {:
 					RESULT = new GreaterThan(e1,e2);
 		        :}
-		|		EXPRBOOL:e1 INF:o EXPRBOOL:e2
+		|		EXPRARI:e1 INF:o EXPRARI:e2
 		        {:
 					RESULT = new LowerThan(e1,e2);
+		        :}
+		|		EXPRARI:e1 EQUAL:o EXPRARI:e2
+		        {:
+					RESULT = new Equal(e1,e2);
 		        :}
 		|		EXPRBOOL:e1 EQUAL:o EXPRBOOL:e2
 		        {:
 					RESULT = new Equal(e1,e2);
 		        :}
-		|		PAROUV EXPRBOOL:e PARFER
+		|		PAROUV EXPRBOOL:e PARFER 
 		        {:
 		         	RESULT = e;
 		        :}
