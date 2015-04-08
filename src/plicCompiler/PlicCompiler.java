@@ -39,6 +39,8 @@ public class PlicCompiler {
 		ArbreAbstrait arbreAbstrait = null;
 		try {
 			arbreAbstrait =  (ArbreAbstrait) analyser.parse().value;
+			AnalyserSementique analyserSemantique = new AnalyserSemantique(arbreAbstrait);
+			analyserSementique.parcourir(); 
 			//System.out.println(arbreAbstrait.toString());
 			//System.out.println(arbreAbstrait.toCode());
 			

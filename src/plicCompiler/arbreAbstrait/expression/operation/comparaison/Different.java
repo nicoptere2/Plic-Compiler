@@ -1,8 +1,9 @@
 package plicCompiler.arbreAbstrait.expression.operation.comparaison;
 
 import plicCompiler.arbreAbstrait.expression.Expression;
+import plicCompiler.arbreAbstrait.expression.operation.OperationBinaire;
 
-public class Different extends OperationComparaison {
+public class Different extends OperationBinaire {
 
 	
 	public Different(Expression e1, Expression e2) {

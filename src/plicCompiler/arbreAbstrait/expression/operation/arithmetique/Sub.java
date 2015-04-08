@@ -1,8 +1,9 @@
 package plicCompiler.arbreAbstrait.expression.operation.arithmetique;
 
 import plicCompiler.arbreAbstrait.expression.Expression;
+import plicCompiler.arbreAbstrait.expression.operation.OperationBinaire;
 
-public class Sub extends OperationArithmetique {
+public class Sub extends OperationBinaire {
 
 	public Sub(Expression e1, Expression e2) {
 		super(e1, e2);

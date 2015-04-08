@@ -32,7 +32,7 @@ import java_cup.runtime.*;
 number = [0-9]
 
 equal	= ==
-diff	= !=
+diff	= \!=
 inf		= <
 sup		= >
 
@@ -61,6 +61,8 @@ parfer	= \)
 
 {sup}						{ return symbol(CodesLexicaux.SUP); }
 
+{diff}						{ return symbol(CodesLexicaux.DIFF); }
+
 {plus}						{ return symbol(CodesLexicaux.PLUS); }
 
 {minus}						{ return symbol(CodesLexicaux.MINUS); }
@@ -69,7 +71,11 @@ parfer	= \)
 
 {div}						{ return symbol(CodesLexicaux.DIV); }
 
+ET							{ return symbol(CodesLexicaux.AND); }
 
+OU							{ return symbol(CodesLexicaux.OR); }
+
+NON							{ return symbol(CodesLexicaux.NOT); }
 
 vrai						{ return symbol(CodesLexicaux.VRAI); }
 
