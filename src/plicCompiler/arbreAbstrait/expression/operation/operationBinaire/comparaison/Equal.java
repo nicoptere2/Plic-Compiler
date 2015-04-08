@@ -1,9 +1,9 @@
-package plicCompiler.arbreAbstrait.expression.operation.comparaison;
+package plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparaison;
 
 import plicCompiler.arbreAbstrait.expression.Expression;
-import plicCompiler.arbreAbstrait.expression.operation.OperationBinaire;
+import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.OperationBinaire;
 
-public class Equal extends OperationBinaire {
+public class Equal extends OperationComparaison {
 
 	public Equal(Expression e1, Expression e2) {
 		super(e1, e2);

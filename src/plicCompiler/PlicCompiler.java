@@ -11,6 +11,8 @@ import java.io.IOException;
 
 import plicCompiler.analyseLexSynt.AnalyseurLexical;
 import plicCompiler.analyseLexSynt.AnalyseurSyntaxique;
+import plicCompiler.analyseSemantique.AnalyseurSemantique;
+import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
 
 /**
@@ -22,8 +24,6 @@ public class PlicCompiler {
 	private FileIO file;
 	
 	public PlicCompiler(String filename) {
-		
-		System.out.println("fdkslqfmsdklm");
 		
 		file = new FileIO();
 		
@@ -39,16 +39,23 @@ public class PlicCompiler {
 		ArbreAbstrait arbreAbstrait = null;
 		try {
 			arbreAbstrait =  (ArbreAbstrait) analyser.parse().value;
-			AnalyserSementique analyserSemantique = new AnalyserSemantique(arbreAbstrait);
-			analyserSementique.parcourir(); 
-			//System.out.println(arbreAbstrait.toString());
-			//System.out.println(arbreAbstrait.toCode());
 			
-			file.write(arbreAbstrait.toCode());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Erreur Analyse LexSynt");
+			System.exit(1);
+		}
+		
+		AnalyseurSemantique analyserSemantique = new AnalyseurSemantique(arbreAbstrait);
+		
+		analyserSemantique.check();
+		
+		try {
+			file.write(arbreAbstrait.toCode());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			System.exit(1);
 		}
 	}
@@ -59,7 +66,6 @@ public class PlicCompiler {
 	public static void main(String[] args) {
 		System.out.println("Bienvenue a notre programmeur Plic!");
 		if(args.length == 0) {
-			System.out.println("arg1 : fileName");
 			new PlicCompiler("test");
 		}
 		else {

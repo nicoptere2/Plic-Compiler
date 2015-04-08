@@ -71,12 +71,6 @@ parfer	= \)
 
 {div}						{ return symbol(CodesLexicaux.DIV); }
 
-ET							{ return symbol(CodesLexicaux.AND); }
-
-OU							{ return symbol(CodesLexicaux.OR); }
-
-NON							{ return symbol(CodesLexicaux.NOT); }
-
 vrai						{ return symbol(CodesLexicaux.VRAI); }
 
 faux						{ return symbol(CodesLexicaux.FAUX); }

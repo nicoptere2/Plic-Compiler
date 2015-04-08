@@ -1,7 +1,9 @@
-package plicCompiler.arbreAbstrait.expression;
+package plicCompiler.arbreAbstrait.expression.constante;
+
+import plicCompiler.arbreAbstrait.expression.Expression;
 
 
-public class Constante extends Expression {
+public abstract class Constante extends Expression {
 	
 	protected String constante;
 
@@ -22,4 +24,6 @@ public class Constante extends Expression {
 		return code.toString();
 	}
 	
+	@Override
+	public abstract void checkType();
 }

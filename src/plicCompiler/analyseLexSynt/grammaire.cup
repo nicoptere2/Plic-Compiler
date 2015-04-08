@@ -1,24 +1,21 @@
 package plicCompiler.analyseLexSynt ;
 
-import java_cup.runtime.*;
-import plicCompiler.analyseLexSynt.*;
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
-import plicCompiler.arbreAbstrait.ArbreAbstrait.*;
-import plicCompiler.arbreAbstrait.expression.Constante;
 import plicCompiler.arbreAbstrait.expression.Expression;
-import plicCompiler.arbreAbstrait.expression.operation.ExpressionNegative;
-import plicCompiler.arbreAbstrait.expression.operation.OperationBinaire;
-import plicCompiler.arbreAbstrait.expression.operation.Not;
-import plicCompiler.arbreAbstrait.expression.operation.arithmetique.Add;
-import plicCompiler.arbreAbstrait.expression.operation.arithmetique.Mul;
-import plicCompiler.arbreAbstrait.expression.operation.arithmetique.Sub;
-import plicCompiler.arbreAbstrait.expression.operation.arithmetique.Div;
-import plicCompiler.arbreAbstrait.expression.operation.comparaison.Equal;
-import plicCompiler.arbreAbstrait.expression.operation.comparaison.GreaterThan;
-import plicCompiler.arbreAbstrait.expression.operation.comparaison.LowerThan;
-import plicCompiler.arbreAbstrait.expression.operation.comparaison.Different;
-import plicCompiler.arbreAbstrait.expression.operation.logique.And;
-import plicCompiler.arbreAbstrait.expression.operation.logique.Or;
+import plicCompiler.arbreAbstrait.expression.constante.ConstanteArithmetique;
+import plicCompiler.arbreAbstrait.expression.constante.ConstanteLogique;
+import plicCompiler.arbreAbstrait.expression.operation.operationUnaire.ExpressionNegative;
+import plicCompiler.arbreAbstrait.expression.operation.operationUnaire.Not;
+import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.arithmetique.Add;
+import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.arithmetique.Mul;
+import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.arithmetique.Sub;
+import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.arithmetique.Div;
+import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparaison.Equal;
+import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparaison.GreaterThan;
+import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparaison.LowerThan;
+import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparaison.Different;
+import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.logique.And;
+import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.logique.Or;
 
 
 
@@ -86,10 +83,6 @@ terminal Symbol		SUP;
 terminal Symbol		INF;
 terminal Symbol		EQUAL;
 
-terminal Symbol		AND;
-terminal Symbol		OR;
-terminal Symbol		NOT;
-
 terminal Symbol		PLUS;
 terminal Symbol		MINUS;
 terminal Symbol		MUL;
@@ -105,10 +98,10 @@ terminal Symbol		FAUX;
    specific type.  So it could be an Integer or a String or whatever. */
 
 non terminal ArbreAbstrait PROG;
-non terminal Expression EXPR, EXPRBOOL, EXPRARI, EXPRCOMP, EXPRLOG;
+non terminal Expression EXPR, EXPRARI, EXPRCOMP;
 
-precedence left PLUS, MINUS, DIFF, SUP, INF, AND, OR;
-precedence left MUL, DIV, NOT;
+precedence left PLUS, MINUS, DIFF, SUP, INF;
+precedence left MUL, DIV;
 precedence left EQUAL;
 
 /* ----------------------------Grammar Section-------------------- */
@@ -125,7 +118,7 @@ EXPR	::=		EXPRARI:e
 				{:
 					RESULT = e; 
 				:}
-		|		EXPRLOG:e
+		|		EXPRCOMP:e
 				{:
 					RESULT = e;
 				:}
@@ -133,7 +126,15 @@ EXPR	::=		EXPRARI:e
         
 EXPRARI	::=		CSTE:c 
 			    {:
-					RESULT = new Constante(c);
+					RESULT = new ConstanteArithmetique(c);
+		        :}
+		|		VRAI
+			    {:
+					RESULT = new ConstanteLogique("1");
+		        :}
+		|		FAUX
+			    {:
+					RESULT = new ConstanteLogique("0");
 		        :}
 		|		EXPRARI:e1 PLUS EXPRARI:e2
 		        {:
@@ -178,42 +179,6 @@ EXPRCOMP::=		EXPRARI:e1 DIFF EXPRARI:e2
 					RESULT = new Equal(e1,e2);
 		        :}
 		|		PAROUV EXPRCOMP:e PARFER 
-		        {:
-		         	RESULT = e;
-		        :}
-		;
-		
-EXPRLOG	::=		EXPRBOOL:e
-				{:
-					RESULT = e;
-				:}
-		|		EXPRCOMP:e
-				{:
-					RESULT = e;
-				:}
-		;
-		
-EXPRBOOL::=		VRAI
-				{:
-					RESULT = new Constante("1");
-				:}
-		|		FAUX
-				{:
-					RESULT = new Constante("0");
-				:}
-		|		EXPRLOG:e1 AND EXPRLOG:e2
-				{:
-					RESULT = new And(e1, e2);
-				:}
-		|		EXPRLOG:e1 OR EXPRLOG:e2
-				{:
-					RESULT = new Or(e1, e2);
-				:}
-		|		NOT EXPRLOG:e
-				{:
-					RESULT = new Not(e);
-				:}
-		|		PAROUV EXPRBOOL:e PARFER 
 		        {:
 		         	RESULT = e;
 		        :}

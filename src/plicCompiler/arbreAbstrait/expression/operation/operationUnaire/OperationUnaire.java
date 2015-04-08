@@ -1,4 +1,4 @@
-package plicCompiler.arbreAbstrait.expression.operation;
+package plicCompiler.arbreAbstrait.expression.operation.operationUnaire;
 
 import plicCompiler.arbreAbstrait.expression.Expression;
 

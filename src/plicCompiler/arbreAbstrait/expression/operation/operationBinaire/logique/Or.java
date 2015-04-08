@@ -1,13 +1,13 @@
-package plicCompiler.arbreAbstrait.expression.operation.logique;
+package plicCompiler.arbreAbstrait.expression.operation.operationBinaire.logique;
 
 import plicCompiler.arbreAbstrait.expression.Expression;
-import plicCompiler.arbreAbstrait.expression.operation.OperationBinaire;
+import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.OperationBinaire;
 
 
 
-public class And extends OperationBinaire {
+public class Or extends OperationLogique {
 
-	public And(Expression e1, Expression e2) {
+	public Or(Expression e1, Expression e2) {
 		super(e1, e2);
 	}
 
@@ -15,14 +15,14 @@ public class And extends OperationBinaire {
 	public String toString() {
 		StringBuilder str = new StringBuilder();
 		str.append(this.operandeGauche.toString());
-		str.append(" AND ");
+		str.append(" OR ");
 		str.append(this.operandeDroite.toString());
 		return str.toString();
 	}
 
 	@Override
 	protected String getInstr() {
-		return "#AND \nand";
+		return "#OR \nor";
 	}
 
 }
