@@ -71,7 +71,9 @@ parfer	= \)
 
 
 
+vrai						{ return symbol(CodesLexicaux.VRAI); }
 
+faux						{ return symbol(CodesLexicaux.FAUX); }
 
 {number}+					{ return symbol(CodesLexicaux.CSTE, yytext()); }
 

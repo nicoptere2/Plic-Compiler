@@ -87,6 +87,8 @@ terminal Symbol		MUL;
 terminal Symbol		DIV;
 
 terminal String 	CSTE;
+terminal Symbol 	VRAI;
+terminal Symbol		FAUX;
    
 /* Non terminals used in the grammar section.  
    Non terminals that have an object value are listed first and then non terminals that have an 
@@ -94,7 +96,9 @@ terminal String 	CSTE;
    specific type.  So it could be an Integer or a String or whatever. */
 
 non terminal ArbreAbstrait PROG;
-non terminal Expression EXPR;
+non terminal Expression EXPR, EXPRBOOL, EXPRARI;
+
+non terminal Expression BOOL;
 
 precedence left PLUS, MINUS;
 precedence left MUL, DIV;
@@ -108,35 +112,74 @@ PROG ::= EXPR:e POINTVIRGULE
 					RESULT = e;
 				:}
          ;
+         
+EXPR	::=		EXPRARI:e
+				{:
+					RESULT = e; 
+				:}
+		|		EXPRBOOL:e
+				{:
+					RESULT = e;
+				:}
+		;
 
         
-EXPR	::=		CSTE:c 
+EXPRARI	::=		CSTE:c 
 			    {:
 					RESULT = new Constante(c);
 		        :}
-		|		EXPR:e1 PLUS:o EXPR:e2
+		|		EXPRARI:e1 PLUS:o EXPRARI:e2
 		        {:
 					RESULT = new Add(e1,e2);
 		        :}
-		|		EXPR:e1 MINUS EXPR:e2
+		|		EXPRARI:e1 MINUS EXPRARI:e2
 		        {:
 					RESULT = new Sub(e1,e2);
 		        :}
-		|		EXPR:e1 MUL:o EXPR:e2
+		|		EXPRARI:e1 MUL:o EXPRARI:e2
 		        {:
 					RESULT = new Mul(e1,e2);
 		        :}
-		|		EXPR:e1 DIV:o EXPR:e2
+		|		EXPRARI:e1 DIV:o EXPRARI:e2
 		        {:
 					RESULT = new Div(e1,e2);
 		        :}
-		|		PAROUV EXPR:e PARFER
+		|		PAROUV EXPRARI:e PARFER
 		        {:
 		         	RESULT = e;
 		        :}
-		|		MINUS EXPR:e
+		|		MINUS EXPRARI:e
 				{:
 					RESULT = new ExpressionNegative(e);
 				:}
-
          ;
+         
+EXPRBOOL::=		VRAI
+				{:
+					RESULT = new Constante("1");
+				:}
+		|		FAUX
+				{:
+					RESULT = new Constante("0");
+				:}
+		|		EXPRBOOL:e1 DIFF:o EXPRBOOL:e2
+		        {:
+					RESULT = new Different(e1,e2);
+		        :}
+		|		EXPRBOOL:e1 SUP:o EXPRBOOL:e2
+		        {:
+					RESULT = new GreaterThan(e1,e2);
+		        :}
+		|		EXPRBOOL:e1 INF:o EXPRBOOL:e2
+		        {:
+					RESULT = new LowerThan(e1,e2);
+		        :}
+		|		EXPRBOOL:e1 EQUAL:o EXPRBOOL:e2
+		        {:
+					RESULT = new Equal(e1,e2);
+		        :}
+		|		PAROUV EXPRBOOL:e PARFER
+		        {:
+		         	RESULT = e;
+		        :}
+		;
