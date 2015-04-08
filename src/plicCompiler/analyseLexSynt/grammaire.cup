@@ -134,5 +134,9 @@ EXPR	::=		CSTE:c
 		        {:
 		         	RESULT = e;
 		        :}
+		|		MINUS EXPR:e
+				{:
+					RESULT = new ExpressionNegative(e);
+				:}
 
          ;

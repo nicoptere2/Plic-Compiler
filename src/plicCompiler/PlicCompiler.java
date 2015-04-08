@@ -19,33 +19,19 @@ import plicCompiler.arbreAbstrait.ArbreAbstrait;
  */
 public class PlicCompiler {
 	
-	public PlicCompiler(String fileName) {
-		StringBuilder code = new StringBuilder();
-		BufferedReader br = null;
-		String buff = "";
+	private FileIO file;
+	
+	public PlicCompiler(String filename) {
 		
-		try {
-			br = new BufferedReader(new FileReader(fileName));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			System.out.println("Impossible d'ouvrir le fichier");
-			System.exit(1);
-		}
+		System.out.println("fdkslqfmsdklm");
 		
-		 while(buff != null) {
-			code.append(buff+"\n");
-			try {
-				buff = br.readLine();
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.out.println("Impossible de lire le fichier");
-				System.exit(1);
-			}
-		};
+		file = new FileIO();
 		
-		System.out.println(code.toString());
+		String code = file.read(filename);
 		
-		this.compiler(code.toString());
+		System.out.println(code);
+		
+		this.compiler(code);
 	}
 
 	private void compiler(String code) {
@@ -53,8 +39,11 @@ public class PlicCompiler {
 		ArbreAbstrait arbreAbstrait = null;
 		try {
 			arbreAbstrait =  (ArbreAbstrait) analyser.parse().value;
-			System.out.println(arbreAbstrait.toString());
-			System.out.println(arbreAbstrait.toCode());
+			//System.out.println(arbreAbstrait.toString());
+			//System.out.println(arbreAbstrait.toCode());
+			
+			file.write(arbreAbstrait.toCode());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Erreur Analyse LexSynt");
@@ -69,7 +58,7 @@ public class PlicCompiler {
 		System.out.println("Bienvenue a notre programmeur Plic!");
 		if(args.length == 0) {
 			System.out.println("arg1 : fileName");
-			new PlicCompiler("test.plic");
+			new PlicCompiler("test");
 		}
 		else {
 			new PlicCompiler(args[1]);
