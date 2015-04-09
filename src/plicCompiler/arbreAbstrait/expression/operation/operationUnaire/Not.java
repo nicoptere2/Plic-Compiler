@@ -19,5 +19,7 @@ public class Not extends OperationUnaire {
 		this.exp.checkType();
 		if(this.exp.getType() != Expression.Type.LOGICAL)
 			throw new TypeIncompatibleException();
+		
+		this.type = Expression.Type.LOGICAL;
 	}
 }

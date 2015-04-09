@@ -24,6 +24,8 @@ public abstract class OperationLogique extends OperationBinaire {
 		
 		if((this.operandeGauche.getType() != Expression.Type.LOGICAL) || (this.operandeDroite.getType() != Expression.Type.LOGICAL))
 			throw new TypeIncompatibleException();
+		
+		this.type = Expression.Type.LOGICAL;
 	}
 
 }

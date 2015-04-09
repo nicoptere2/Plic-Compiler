@@ -10,11 +10,6 @@ public class Sub extends OperationArithmetique {
 	}
 
 	@Override
-	public String toString() {
-		return this.operandeGauche + "-" + this.operandeDroite;
-	}
-
-	@Override
 	protected String getInstr() {
 		return "#Soustraction \n" + this.operateur;
 	}

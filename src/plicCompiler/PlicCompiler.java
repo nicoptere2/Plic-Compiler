@@ -64,13 +64,7 @@ public class PlicCompiler {
 	 */
 	public static void main(String[] args) {
 		System.out.println("Bienvenue a notre programmeur Plic!");
-		if(args.length == 0) {
-			new PlicCompiler("test");
-		}
-		else {
-			new PlicCompiler(args[1]);
-			
-		}
+		new PlicCompiler("test");
 	}
 
 }

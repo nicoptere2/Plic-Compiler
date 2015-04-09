@@ -24,5 +24,7 @@ public class ExpressionNegative extends OperationUnaire{
 		this.exp.checkType();
 		if(this.exp.getType() != Expression.Type.ARITMETICAL)
 			throw new TypeIncompatibleException();
+		
+		this.type = Expression.Type.ARITMETICAL;
 	}
 }

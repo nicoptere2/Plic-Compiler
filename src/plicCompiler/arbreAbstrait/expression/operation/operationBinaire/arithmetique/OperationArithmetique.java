@@ -13,7 +13,9 @@ public abstract class OperationArithmetique extends OperationBinaire{
 	}
 
 	@Override
-	public abstract String toString();
+	public String toString() {
+		return this.operandeGauche + this.operateur + this.operandeDroite;
+	}
 
 	@Override
 	protected abstract String getInstr();
@@ -26,7 +28,9 @@ public abstract class OperationArithmetique extends OperationBinaire{
 		this.operandeDroite.checkType();
 		
 		if(this.operandeGauche.getType() !=  this.operandeDroite.getType() )
-			throw new TypeIncompatibleException("Differents type d'operateur trouvé");
+			throw new TypeIncompatibleException("Differents type d'operateur trouvï¿½");
+		
+		this.setType(this.operandeDroite.getType());
 		
 		this.setOperateur();
 	}

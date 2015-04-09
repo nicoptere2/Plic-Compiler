@@ -15,6 +15,7 @@ public class AnalyseurSemantique {
 		try {
 			arbreAbstrait.checkType();
 		} catch (TypeIncompatibleException e) {
+			System.out.println(arbreAbstrait.toString());
 			System.out.println("Erreur : " + e.getMessage());
 			System.exit(0);
 		}
