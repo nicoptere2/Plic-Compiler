@@ -113,18 +113,8 @@ PROG ::= EXPR:e POINTVIRGULE
 					RESULT = e;
 				:}
          ;
-         
-EXPR	::=		EXPRARI:e
-				{:
-					RESULT = e; 
-				:}
-		|		EXPRCOMP:e
-				{:
-					RESULT = e;
-				:}
-		;
         
-EXPRARI	::=		CSTE:c 
+EXPR	::=		CSTE:c 
 			    {:
 					RESULT = new ConstanteArithmetique(c);
 		        :}
@@ -136,50 +126,44 @@ EXPRARI	::=		CSTE:c
 			    {:
 					RESULT = new ConstanteLogique("0");
 		        :}
-		|		EXPRARI:e1 PLUS EXPRARI:e2
+		|		EXPR:e1 PLUS EXPR:e2
 		        {:
 					RESULT = new Add(e1,e2);
 		        :}
-		|		EXPRARI:e1 MINUS EXPRARI:e2
+		|		EXPR:e1 MINUS EXPR:e2
 		        {:
 					RESULT = new Sub(e1,e2);
 		        :}
-		|		EXPRARI:e1 MUL EXPRARI:e2
+		|		EXPR:e1 MUL EXPR:e2
 		        {:
 					RESULT = new Mul(e1,e2);
 		        :}
-		|		EXPRARI:e1 DIV EXPRARI:e2
+		|		EXPR:e1 DIV EXPR:e2
 		        {:
 					RESULT = new Div(e1,e2);
 		        :}
-		|		PAROUV EXPRARI:e PARFER
+		|		EXPR:e1 DIFF EXPR:e2
+		        {:
+					RESULT = new Different(e1,e2);
+		        :}
+		|		EXPR:e1 SUP EXPR:e2
+		        {:
+					RESULT = new GreaterThan(e1,e2);
+		        :}
+		|		EXPR:e1 INF EXPR:e2
+		        {:
+					RESULT = new LowerThan(e1,e2);
+		        :}
+		|		EXPR:e1 EQUAL EXPR:e2
+		        {:
+					RESULT = new Equal(e1,e2);
+		        :}
+		|		PAROUV EXPR:e PARFER
 		        {:
 		         	RESULT = e;
 		        :}
-		|		MINUS EXPRARI:e
+		|		MINUS EXPR:e
 				{:
 					RESULT = new ExpressionNegative(e);
 				:}
          ;
-         
-EXPRCOMP::=		EXPRARI:e1 DIFF EXPRARI:e2
-		        {:
-					RESULT = new Different(e1,e2);
-		        :}
-		|		EXPRARI:e1 SUP EXPRARI:e2
-		        {:
-					RESULT = new GreaterThan(e1,e2);
-		        :}
-		|		EXPRARI:e1 INF EXPRARI:e2
-		        {:
-					RESULT = new LowerThan(e1,e2);
-		        :}
-		|		EXPRARI:e1 EQUAL EXPRARI:e2
-		        {:
-					RESULT = new Equal(e1,e2);
-		        :}
-		|		PAROUV EXPRCOMP:e PARFER 
-		        {:
-		         	RESULT = e;
-		        :}
-		;

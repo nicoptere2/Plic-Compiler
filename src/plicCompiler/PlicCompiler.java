@@ -54,7 +54,6 @@ public class PlicCompiler {
 		try {
 			file.write(arbreAbstrait.toCode());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.exit(1);
 		}
