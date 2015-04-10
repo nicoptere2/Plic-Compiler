@@ -9,23 +9,28 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class FileIO {
+
+	private String inFilename;
 	
-	private String filename;
+	private String outFilename;
+	
+	public FileIO(String inFilename, String outFilename) {
+		super();
+		this.inFilename = inFilename;
+		this.outFilename = outFilename;
+	}	
 	
 	@SuppressWarnings("resource")
-	public String read(String f) {
-		
-		filename = f;
+	public String read() {
 		
 		StringBuilder code = new StringBuilder();
 		BufferedReader br = null;
 		String buff = "";
 		
 		try {
-			br = new BufferedReader(new FileReader(filename+".plic"));
+			br = new BufferedReader(new FileReader(inFilename));
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			System.out.println("Impossible d'ouvrir le fichier");
+			System.out.println("Erreur : " + e.getMessage());
 			System.exit(1);
 		}
 		
@@ -45,38 +50,21 @@ public class FileIO {
 
 	public void write(String code) throws IOException {
 		
-		String f = filename;
-		boolean done = false;
-		int i=0;
-		
 		File file;
-		
-		do {
-			if(i!=0)
-				f = filename+i;
 			
-			file = new File(f +".asm");
-	    	try {
-				if(file.createNewFile()){
-					System.out.println("file created : " + f + ".asm");
-					done = true;
-				}else{
-					System.out.println("file already exists");
-					i++;
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} while(!done);
+		file = new File(this.outFilename);
     	
     	FileWriter fw;
-    	fw = new FileWriter(file.getAbsoluteFile());
+    	fw = new FileWriter(file.getAbsoluteFile(), false);
     	BufferedWriter writer = new BufferedWriter(fw);
     	
     	writer.write(code);
 
 		writer.close();
 	
+	}
+
+	public String getOutFilename() {
+		return this.outFilename;
 	}
 }

@@ -21,15 +21,13 @@ import plicCompiler.arbreAbstrait.ArbreAbstrait;
  */
 public class PlicCompiler {
 	
-	private FileIO file;
+	private static FileIO file;
 	
-	public PlicCompiler(String filename) {
+	public PlicCompiler() {
 		
-		file = new FileIO();
+		String code = file.read();
 		
-		String code = file.read(filename);
-		
-		System.out.println(code);
+		//System.out.println(code);
 		
 		this.compiler(code);
 	}
@@ -57,6 +55,8 @@ public class PlicCompiler {
 			e.printStackTrace();
 			System.exit(1);
 		}
+		System.out.println("Compilation Effectué");
+		System.out.println("Ecriture dans le fichier : " + file.getOutFilename());
 	}
 
 	/**
@@ -64,7 +64,13 @@ public class PlicCompiler {
 	 */
 	public static void main(String[] args) {
 		System.out.println("Bienvenue a notre programmeur Plic!");
-		new PlicCompiler("test");
+		if(args.length != 2){
+			System.out.println("Usage : plicCompiler fichierSource fichier destination");
+			System.exit(1);
+		}
+			
+		file = new FileIO(args[0], args[1]);
+		new PlicCompiler();
 	}
 
 }
