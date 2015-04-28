@@ -1,6 +1,14 @@
 package plicCompiler.analyseLexSynt ;
 
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
+import plicCompiler.arbreAbstrait.Classe;
+import plicCompiler.arbreAbstrait.Instruction.EcrireConstante;
+import plicCompiler.arbreAbstrait.Instruction.EcrireExpression;
+import plicCompiler.arbreAbstrait.Instruction.Instruction;
+import plicCompiler.arbreAbstrait.Instruction.ListeInstruction;
+import plicCompiler.arbreAbstrait.Instruction.Affectation;
+import plicCompiler.arbreAbstrait.Instruction.Ecrire;
+import plicCompiler.arbreAbstrait.Instruction.Lire;
 import plicCompiler.arbreAbstrait.expression.Expression;
 import plicCompiler.arbreAbstrait.expression.constante.ConstanteArithmetique;
 import plicCompiler.arbreAbstrait.expression.constante.ConstanteLogique;
@@ -16,7 +24,6 @@ import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparai
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparaison.Different;
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.logique.And;
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.logique.Or;
-
 
 
 action code {: /* vide pour le moment */
@@ -91,14 +98,37 @@ terminal Symbol		DIV;
 terminal String 	CSTE;
 terminal Symbol 	VRAI;
 terminal Symbol		FAUX;
+
+terminal Symbol END;
+terminal Symbol PUBLIC;
+terminal Symbol PRIVE;
+terminal Symbol ENTIER;
+terminal Symbol ECRIREIDF;
+terminal Symbol LIREIDF;
+terminal String MOT;
+terminal Symbol CLASSEIDF;
+terminal String CHAINE;
    
 /* Non terminals used in the grammar section.  
    Non terminals that have an object value are listed first and then non terminals that have an 
    integer value are listed.  An object value means that it can be any type, it isn't set to a 
    specific type.  So it could be an Integer or a String or whatever. */
 
-non terminal ArbreAbstrait PROG;
-non terminal Expression EXPR, EXPRARI, EXPRCOMP;
+non terminal Expression EXPR;
+
+non terminal ArbreAbstrait SYSTEME;
+non terminal Classe CLASSE;
+non terminal ListeInstruction LISTDECL;
+non terminal ArbreAbstrait DECLARATION ;
+non terminal Declaration DECL_CHAMP;
+non terminal ArbreAbstrait LISTIDF;
+non terminal Statue STATUT;
+non terminal Type TYPE;
+non terminal ListeInstruction LISTINSTR;
+non terminal Instruction INSTRUCTION;
+non terminal Affectation AFFECT;
+non terminal Lire LIRE;
+non terminal Ecrire ECRIRE;
 
 precedence left PLUS, MINUS, DIFF, SUP, INF;
 precedence left MUL, DIV;
@@ -107,13 +137,89 @@ precedence left UMINUS;
 
 /* ----------------------------Grammar Section-------------------- */
 
-start with PROG;
+start with SYSTEME;
 
-PROG ::= EXPR:e POINTVIRGULE
-				{:
-					RESULT = e;
-				:}
-         ;
+SYSTEME		::=		CLASSE:c
+					{:
+						RESULT = c;
+					:}
+			;
+
+CLASSE		::=		CLASSEIDF MOT:idf LISTDECL:lst END
+					{:
+						RESULT = new Classe(idf, lst);
+					:}
+			;
+
+LISTDECL	::=		DECLARATION LISTDECL
+					{:
+					:}
+			;
+
+DECLARATION	::=		DECL_CHAMP:d
+					{:
+						RESULT = d;
+					:}
+			|		LISTINSTR:lst
+					{:
+						RESULT = lst
+					:}
+			;
+
+DECL_CHAMP	::=		STATUT TYPE LISTIDF POINTVIRGULE
+			;
+
+LISTIDF		::=		MOT LISTIDF
+			;
+
+STATUT		::=		PUBLIC
+			|		PRIVE
+			;
+
+TYPE		::=		ENTIER
+			;
+
+LISTINSTR	::=		INSTRUCTION:instr LISTINSTR
+					{:
+					:}
+			;
+
+INSTRUCTION	::=		AFFECT:aff
+					{:
+						RESULT = aff;
+					:}
+			|		LIRE:l
+					{:
+						RESULT = l;
+					:}
+			|		ECRIRE:e
+					{:
+						RESULT = e;
+					:}
+			;
+
+AFFECT		::=		MOT:idf EQUAL EXPR:e POINTVIRGULE
+					{:
+						RESULT = new Affectation(idf, e);
+					:}
+			;
+
+LIRE		::=		LIREIDF MOT:idf POINTVIRGULE
+					{:
+						RESULT = new Lire(idf);
+					:}
+			;
+
+ECRIRE		::=		ECRIREIDF EXPR:e POINTVIRGULE
+					{:
+						RESULT = new EcrireExpression(e);
+					:}
+			|		ECRIREIDF CHAINE:c POINTVIRGULE
+					{:
+						RESULT = new EcrireConstante(c);
+					:}
+			;
+			
         
 EXPR	::=		CSTE:c 
 			    {:

@@ -30,6 +30,9 @@ import java_cup.runtime.*;
 %state commentaire
 
 number = [0-9]
+lettre = [a-zA-Z]
+mot = {lettre}+
+chaine = mot (mot*)
 
 equal	= ==
 diff	= \!=
@@ -74,6 +77,30 @@ parfer	= \)
 vrai						{ return symbol(CodesLexicaux.VRAI); }
 
 faux						{ return symbol(CodesLexicaux.FAUX); }
+
+end							{ return symbol(CodesLexicaux.END); }
+
+
+
+
+
+
+public						{ return symbol(CodesLexicaux.PUBLIC); }
+
+prive						{ return symbol(CodesLexicaux.PRIVE); }
+
+entier						{ return symbol(CodesLexicaux.ENTIER); }
+
+ecrire						{ return symbol(CodesLexicaux.ECRIREIDF); }
+
+lire						{ return symbol(CodesLexicaux.LIREIDF); }
+
+class						{ return symbol(CodesLexicaux.CLASSEIDF); }
+
+mot							{ return symbol(CodesLexicaux.MOT, yytext()); }
+
+chaine						{ return symbol(CodesLexicaux.CHAINE, yytext()); }
+
 
 {number}+					{ return symbol(CodesLexicaux.CSTE, yytext()); }
 
