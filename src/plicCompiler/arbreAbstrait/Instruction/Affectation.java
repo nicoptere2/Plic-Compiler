@@ -1,6 +1,6 @@
 package plicCompiler.arbreAbstrait.Instruction;
 
-import plicCompiler.arbreAbstrait.Mot.Identificateur;
+import plicCompiler.arbreAbstrait.Identificateur;
 import plicCompiler.arbreAbstrait.expression.Expression;
 
 public class Affectation extends Instruction{

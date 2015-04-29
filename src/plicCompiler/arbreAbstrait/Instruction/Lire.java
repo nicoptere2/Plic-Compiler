@@ -1,6 +1,6 @@
 package plicCompiler.arbreAbstrait.Instruction;
 
-import plicCompiler.arbreAbstrait.Mot.Identificateur;
+import plicCompiler.arbreAbstrait.Identificateur;
 
 public class Lire extends Instruction {
 	

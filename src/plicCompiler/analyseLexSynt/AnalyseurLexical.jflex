@@ -97,10 +97,9 @@ lire						{ return symbol(CodesLexicaux.LIREIDF); }
 
 class						{ return symbol(CodesLexicaux.CLASSEIDF); }
 
-mot							{ return symbol(CodesLexicaux.MOT, yytext()); }
+{chaine}					{ return symbol(CodesLexicaux.CHAINE, yytext()); }
 
-chaine						{ return symbol(CodesLexicaux.CHAINE, yytext()); }
-
+{mot}						{ return symbol(CodesLexicaux.IDF, yytext()); }
 
 {number}+					{ return symbol(CodesLexicaux.CSTE, yytext()); }
 

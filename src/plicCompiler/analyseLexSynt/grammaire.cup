@@ -2,6 +2,7 @@ package plicCompiler.analyseLexSynt ;
 
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
 import plicCompiler.arbreAbstrait.Classe;
+import plicCompiler.arbreAbstrait.Identificateur;
 import plicCompiler.arbreAbstrait.Instruction.EcrireConstante;
 import plicCompiler.arbreAbstrait.Instruction.EcrireExpression;
 import plicCompiler.arbreAbstrait.Instruction.Instruction;
@@ -11,6 +12,7 @@ import plicCompiler.arbreAbstrait.Instruction.Ecrire;
 import plicCompiler.arbreAbstrait.Instruction.Lire;
 import plicCompiler.arbreAbstrait.expression.Expression;
 import plicCompiler.arbreAbstrait.expression.constante.ConstanteArithmetique;
+import plicCompiler.arbreAbstrait.expression.constante.ConstanteChaine;
 import plicCompiler.arbreAbstrait.expression.constante.ConstanteLogique;
 import plicCompiler.arbreAbstrait.expression.operation.operationUnaire.ExpressionNegative;
 import plicCompiler.arbreAbstrait.expression.operation.operationUnaire.Not;
@@ -105,9 +107,9 @@ terminal Symbol PRIVE;
 terminal Symbol ENTIER;
 terminal Symbol ECRIREIDF;
 terminal Symbol LIREIDF;
-terminal String MOT;
 terminal Symbol CLASSEIDF;
 terminal String CHAINE;
+terminal String IDF;
    
 /* Non terminals used in the grammar section.  
    Non terminals that have an object value are listed first and then non terminals that have an 
@@ -145,14 +147,16 @@ SYSTEME		::=		CLASSE:c
 					:}
 			;
 
-CLASSE		::=		CLASSEIDF MOT:idf LISTDECL:lst END
+CLASSE		::=		CLASSEIDF IDF:idf LISTDECL:lst END
 					{:
-						RESULT = new Classe(idf, lst);
+						TDS.getInstance().entrerBlock();
+						RESULT = new Classe(new Identificateur(idf), lst);
 					:}
 			;
 
-LISTDECL	::=		DECLARATION LISTDECL
+LISTDECL	::=		DECLARATION:d LISTDECL.lst
 					{:
+						lst.add(d);
 					:}
 			;
 
@@ -162,14 +166,16 @@ DECLARATION	::=		DECL_CHAMP:d
 					:}
 			|		LISTINSTR:lst
 					{:
-						RESULT = lst
 					:}
 			;
 
 DECL_CHAMP	::=		STATUT TYPE LISTIDF POINTVIRGULE
+					{:
+						TDS.getInstance().ajouter(
+					:}
 			;
 
-LISTIDF		::=		MOT LISTIDF
+LISTIDF		::=		IDF LISTIDF
 			;
 
 STATUT		::=		PUBLIC
@@ -198,15 +204,15 @@ INSTRUCTION	::=		AFFECT:aff
 					:}
 			;
 
-AFFECT		::=		MOT:idf EQUAL EXPR:e POINTVIRGULE
+AFFECT		::=		IDF:idf EQUAL EXPR:e POINTVIRGULE
 					{:
-						RESULT = new Affectation(idf, e);
+						RESULT = new Affectation(new Identificateur(idf), e);
 					:}
 			;
 
-LIRE		::=		LIREIDF MOT:idf POINTVIRGULE
+LIRE		::=		LIREIDF IDF:idf POINTVIRGULE
 					{:
-						RESULT = new Lire(idf);
+						RESULT = new Lire(new Identificateur(idf));
 					:}
 			;
 
@@ -216,7 +222,7 @@ ECRIRE		::=		ECRIREIDF EXPR:e POINTVIRGULE
 					:}
 			|		ECRIREIDF CHAINE:c POINTVIRGULE
 					{:
-						RESULT = new EcrireConstante(c);
+						RESULT = new EcrireConstante(new ConstanteChaine(c));
 					:}
 			;
 			
