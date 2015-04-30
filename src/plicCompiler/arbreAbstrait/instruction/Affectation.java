@@ -1,7 +1,7 @@
-package plicCompiler.arbreAbstrait.Instruction;
+package plicCompiler.arbreAbstrait.instruction;
 
-import plicCompiler.arbreAbstrait.Identificateur;
 import plicCompiler.arbreAbstrait.expression.Expression;
+import plicCompiler.arbreAbstrait.expression.Identificateur;
 
 public class Affectation extends Instruction{
 	
@@ -9,8 +9,8 @@ public class Affectation extends Instruction{
 	
 	private Expression expression;
 	
-	public Affectation(Identificateur identificateur, Expression expression) {
+	public Affectation(Identificateur identificateur, Expression e) {
 		this.identificateur = identificateur;
-		this.expression = expression;
+		this.expression = e;
 	}
 }

@@ -1,5 +1,6 @@
 package plicCompiler.tDS;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class LocalDictionnary {
@@ -13,6 +14,8 @@ public class LocalDictionnary {
 	public LocalDictionnary() {
 		this.father = null;
 		this.idBlock = 0;
+		
+		this.dictionnary = new HashMap<Entre, Symbole>();
 	}
 	
 	private LocalDictionnary(LocalDictionnary father, int idBlock) {
@@ -29,6 +32,7 @@ public class LocalDictionnary {
 	}
 
 	public void add(Entre e, Symbole s) {
+		System.out.println(s.toString() + e.toString());
 		dictionnary.put(e, s);
 	}
 }

@@ -1,6 +1,7 @@
 package plicCompiler.arbreAbstrait;
 
-import plicCompiler.arbreAbstrait.Instruction.ListeInstruction;
+import plicCompiler.arbreAbstrait.expression.Identificateur;
+import plicCompiler.arbreAbstrait.instruction.ListeInstruction;
 
 public class Classe extends ArbreAbstrait {
 	

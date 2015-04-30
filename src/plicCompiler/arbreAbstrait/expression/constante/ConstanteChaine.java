@@ -10,7 +10,11 @@ public class ConstanteChaine extends Constante {
 	@Override
 	public void checkType() {
 		// TODO Auto-generated method stub
-
+	}
+	
+	@Override
+	public String toString() {
+		return "chaine : " + this.constante;
 	}
 
 }

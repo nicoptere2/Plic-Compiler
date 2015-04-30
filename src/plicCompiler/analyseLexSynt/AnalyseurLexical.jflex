@@ -31,8 +31,11 @@ import java_cup.runtime.*;
 
 number = [0-9]
 lettre = [a-zA-Z]
-mot = {lettre}+
-chaine = mot (mot*)
+idf = [a-zA-Z]([a-z|A-Z|0-9])*
+mot = lettre+
+chaine = ["]mot*["]
+
+affect  = =
 
 equal	= ==
 diff	= \!=
@@ -51,14 +54,14 @@ parfer	= \)
 
 %%
 
-";"							{ return symbol(CodesLexicaux.POINTVIRGULE); }
-
+";"							{ System.out.print(";");return symbol(CodesLexicaux.POINTVIRGULE); }
+","							{ System.out.print(",");return symbol(CodesLexicaux.VIRGULE); }
 
 {parouv}					{ return symbol(CodesLexicaux.PAROUV); }
 
 {parfer}					{ return symbol(CodesLexicaux.PARFER); }
 
-{equal}						{ return symbol(CodesLexicaux.EQUAL); }
+{equal}						{ System.out.print("=="); return symbol(CodesLexicaux.EQUAL); }
 
 {inf}						{ return symbol(CodesLexicaux.INF); }
 
@@ -82,12 +85,12 @@ end							{ return symbol(CodesLexicaux.END); }
 
 
 
+{affect}						{ System.out.print("=");return symbol(CodesLexicaux.AFFECTIDF); }
 
 
+publique					{ return symbol(CodesLexicaux.PUBLIC); }
 
-public						{ return symbol(CodesLexicaux.PUBLIC); }
-
-prive						{ return symbol(CodesLexicaux.PRIVE); }
+privee						{ return symbol(CodesLexicaux.PRIVE); }
 
 entier						{ return symbol(CodesLexicaux.ENTIER); }
 
@@ -95,14 +98,14 @@ ecrire						{ return symbol(CodesLexicaux.ECRIREIDF); }
 
 lire						{ return symbol(CodesLexicaux.LIREIDF); }
 
-class						{ return symbol(CodesLexicaux.CLASSEIDF); }
+classe						{ System.out.print("classe"); return symbol(CodesLexicaux.CLASSEIDF); }
 
-{chaine}					{ return symbol(CodesLexicaux.CHAINE, yytext()); }
+\"(\\.|[^"])*\"		{ System.out.println("chaine"); return symbol(CodesLexicaux.CHAINE, yytext()); } 
 
-{mot}						{ return symbol(CodesLexicaux.IDF, yytext()); }
+{idf}						{ System.out.print("idf" + yytext()); return symbol(CodesLexicaux.IDF, yytext()); }
 
 {number}+					{ return symbol(CodesLexicaux.CSTE, yytext()); }
 
-.							{}
-\n 							{}
+.							{ System.out.print("."); }
+\n 							{ System.out.println();}
 

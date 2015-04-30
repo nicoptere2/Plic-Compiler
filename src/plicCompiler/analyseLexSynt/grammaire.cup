@@ -1,21 +1,22 @@
 package plicCompiler.analyseLexSynt ;
 
+import java.util.ArrayList;
+
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
 import plicCompiler.arbreAbstrait.Classe;
-import plicCompiler.arbreAbstrait.Identificateur;
-import plicCompiler.arbreAbstrait.Instruction.EcrireConstante;
-import plicCompiler.arbreAbstrait.Instruction.EcrireExpression;
-import plicCompiler.arbreAbstrait.Instruction.Instruction;
-import plicCompiler.arbreAbstrait.Instruction.ListeInstruction;
-import plicCompiler.arbreAbstrait.Instruction.Affectation;
-import plicCompiler.arbreAbstrait.Instruction.Ecrire;
-import plicCompiler.arbreAbstrait.Instruction.Lire;
+import plicCompiler.arbreAbstrait.instruction.EcrireConstante;
+import plicCompiler.arbreAbstrait.instruction.EcrireIdentificateur;
+import plicCompiler.arbreAbstrait.instruction.Instruction;
+import plicCompiler.arbreAbstrait.instruction.ListeInstruction;
+import plicCompiler.arbreAbstrait.instruction.Affectation;
+import plicCompiler.arbreAbstrait.instruction.Ecrire;
+import plicCompiler.arbreAbstrait.instruction.Lire;
 import plicCompiler.arbreAbstrait.expression.Expression;
+import plicCompiler.arbreAbstrait.expression.Identificateur;
 import plicCompiler.arbreAbstrait.expression.constante.ConstanteArithmetique;
 import plicCompiler.arbreAbstrait.expression.constante.ConstanteChaine;
 import plicCompiler.arbreAbstrait.expression.constante.ConstanteLogique;
 import plicCompiler.arbreAbstrait.expression.operation.operationUnaire.ExpressionNegative;
-import plicCompiler.arbreAbstrait.expression.operation.operationUnaire.Not;
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.arithmetique.Add;
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.arithmetique.Mul;
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.arithmetique.Sub;
@@ -24,8 +25,10 @@ import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparai
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparaison.GreaterThan;
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparaison.LowerThan;
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparaison.Different;
-import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.logique.And;
-import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.logique.Or;
+import plicCompiler.tDS.Entre;
+import plicCompiler.tDS.Symbole;
+import plicCompiler.tDS.TDS;
+
 
 
 action code {: /* vide pour le moment */
@@ -101,6 +104,10 @@ terminal String 	CSTE;
 terminal Symbol 	VRAI;
 terminal Symbol		FAUX;
 
+terminal Symbol 	VIRGULE;
+
+terminal Symbol		AFFECTIDF;
+
 terminal Symbol END;
 terminal Symbol PUBLIC;
 terminal Symbol PRIVE;
@@ -116,21 +123,24 @@ terminal String IDF;
    integer value are listed.  An object value means that it can be any type, it isn't set to a 
    specific type.  So it could be an Integer or a String or whatever. */
 
-non terminal Expression EXPR;
 
 non terminal ArbreAbstrait SYSTEME;
+
 non terminal Classe CLASSE;
 non terminal ListeInstruction LISTDECL;
-non terminal ArbreAbstrait DECLARATION ;
-non terminal Declaration DECL_CHAMP;
-non terminal ArbreAbstrait LISTIDF;
-non terminal Statue STATUT;
-non terminal Type TYPE;
-non terminal ListeInstruction LISTINSTR;
+non terminal Instruction DECLARATION ;
+
+non terminal ArbreAbstrait DECL_CHAMP;
+non terminal ArrayList<Entre> LISTIDF;
+non terminal Symbole.Statue STATUT;
+non terminal Symbole.Type TYPE;
+
 non terminal Instruction INSTRUCTION;
 non terminal Affectation AFFECT;
 non terminal Lire LIRE;
 non terminal Ecrire ECRIRE;
+
+non terminal Expression EXPR;
 
 precedence left PLUS, MINUS, DIFF, SUP, INF;
 precedence left MUL, DIV;
@@ -149,44 +159,65 @@ SYSTEME		::=		CLASSE:c
 
 CLASSE		::=		CLASSEIDF IDF:idf LISTDECL:lst END
 					{:
+						System.out.println("classe : " + idf);
 						TDS.getInstance().entrerBlock();
 						RESULT = new Classe(new Identificateur(idf), lst);
 					:}
 			;
 
-LISTDECL	::=		DECLARATION:d LISTDECL.lst
+LISTDECL	::=		DECLARATION:d LISTDECL:lst
 					{:
 						lst.add(d);
+						RESULT = lst;
 					:}
 			;
 
-DECLARATION	::=		DECL_CHAMP:d
+DECLARATION	::=		DECL_CHAMP POINTVIRGULE
+			|		INSTRUCTION:lst POINTVIRGULE
 					{:
-						RESULT = d;
-					:}
-			|		LISTINSTR:lst
-					{:
+						RESULT = lst;
 					:}
 			;
 
-DECL_CHAMP	::=		STATUT TYPE LISTIDF POINTVIRGULE
+DECL_CHAMP	::=		STATUT:s TYPE:t LISTIDF:idfs 
 					{:
-						TDS.getInstance().ajouter(
+						System.out.println("fhdqqslfhdskqhfjdk");
+						TDS.getInstance().ajouter(idfs, new Symbole(s, t));
 					:}
-			;
+	/*		|		STATUT:s TYPE:t IDF:idf
+					{:
+						System.out.println("coucou 2");
+						TDS.getInstance().ajouter(new Entre(idf), new Symbole(s, t));
+					:}
+		*/	;
 
-LISTIDF		::=		IDF LISTIDF
+LISTIDF		::=		IDF:idf VIRGULE LISTIDF:list
+					{:
+						System.out.println("coucou");
+						list.add(new Entre(idf));
+						RESULT = list;
+					:}
+			|		IDF: idf
+					{:
+						ArrayList<Entre> list = new ArrayList<Entre>();
+						list.add(new Entre(idf));
+						RESULT = list;
+					:}
 			;
 
 STATUT		::=		PUBLIC
+					{:
+						RESULT = Symbole.Statue.PUBLIC;
+					:}
 			|		PRIVE
+					{:
+						RESULT = Symbole.Statue.PRIVE;
+					:}
 			;
 
 TYPE		::=		ENTIER
-			;
-
-LISTINSTR	::=		INSTRUCTION:instr LISTINSTR
 					{:
+						RESULT = Symbole.Type.ENTIER;
 					:}
 			;
 
@@ -204,23 +235,23 @@ INSTRUCTION	::=		AFFECT:aff
 					:}
 			;
 
-AFFECT		::=		IDF:idf EQUAL EXPR:e POINTVIRGULE
+AFFECT		::=		IDF:idf AFFECTIDF EXPR:e 
 					{:
 						RESULT = new Affectation(new Identificateur(idf), e);
 					:}
 			;
 
-LIRE		::=		LIREIDF IDF:idf POINTVIRGULE
+LIRE		::=		LIREIDF IDF:idf 
 					{:
 						RESULT = new Lire(new Identificateur(idf));
 					:}
 			;
 
-ECRIRE		::=		ECRIREIDF EXPR:e POINTVIRGULE
+ECRIRE		::=		ECRIREIDF IDF:idf 
 					{:
-						RESULT = new EcrireExpression(e);
+						RESULT = new EcrireIdentificateur(new Identificateur(idf));
 					:}
-			|		ECRIREIDF CHAINE:c POINTVIRGULE
+			|		ECRIREIDF CHAINE:c 
 					{:
 						RESULT = new EcrireConstante(new ConstanteChaine(c));
 					:}
@@ -239,6 +270,11 @@ EXPR	::=		CSTE:c
 			    {:
 					RESULT = new ConstanteLogique("0");
 		        :}
+		|		IDF:idf
+				{:
+					System.out.printf("je suis un identificateur!!");
+					RESULT = new Identificateur(idf);
+				:}
 		|		EXPR:e1 PLUS EXPR:e2
 		        {:
 					RESULT = new Add(e1,e2);

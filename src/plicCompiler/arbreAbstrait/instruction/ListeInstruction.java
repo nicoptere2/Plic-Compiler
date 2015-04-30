@@ -1,4 +1,4 @@
-package plicCompiler.arbreAbstrait.Instruction;
+package plicCompiler.arbreAbstrait.instruction;
 
 import java.util.ArrayList;
 
@@ -13,5 +13,14 @@ public class ListeInstruction {
 	
 	public void add(Instruction inst) {
 		this.instructions.add(inst);
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder s = new StringBuilder();
+		for(Instruction i: instructions)
+			s.append(i.toString());
+		
+		return s.toString();
 	}
 }

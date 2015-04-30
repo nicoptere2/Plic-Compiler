@@ -16,7 +16,7 @@ public abstract class OperationComparaison extends OperationBinaire {
 		this.operandeDroite.checkType();
 		
 		if((this.operandeGauche.getType() != Expression.Type.ARITMETICAL) || (this.operandeDroite.getType() != Expression.Type.ARITMETICAL))
-			throw new TypeIncompatibleException("Operation de type Arithmetique attendu, logique trouvé");
+			throw new TypeIncompatibleException("Operation de type Arithmetique attendu, logique trouvï¿½");
 		
 		this.type = Expression.Type.LOGICAL;
 	}

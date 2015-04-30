@@ -7,5 +7,10 @@ public class Entre {
 	public Entre(String idf) {
 		this.identificateur = idf;
 	}
+	
+	@Override
+	public String toString() {
+		return this.identificateur;
+	}
 
 }

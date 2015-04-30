@@ -1,5 +1,7 @@
 package plicCompiler.tDS;
 
+import java.util.ArrayList;
+
 public class TDS {
 	
 	private static TDS instance = null;
@@ -31,5 +33,11 @@ public class TDS {
 	
 	public void ajouter(Entre e, Symbole s) {
 		currentBlock.add(e,s);
+	}
+	
+	public void ajouter(ArrayList<Entre> listE, Symbole s) {
+		System.out.println("taille" + listE.size());
+		for(Entre e: listE)
+			currentBlock.add(e,s);
 	}
 }

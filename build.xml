@@ -31,9 +31,9 @@
 <target name="cup" depends="init-cup" if="cup.needed" >
   <echo message="lancement de java-cup"/>
   <java classname="java_cup.Main" fork="yes" failonerror="yes" >
-    <arg line="-symbols CodesLexicaux -parser AnalyseurSyntaxique ${src}/Grammaire.cup" />
+    <arg line="-symbols CodesLexicaux -parser AnalyseurSyntaxique ${src}/grammaire.cup" />
     <classpath>
-        <pathelement path="${java.class.path}:src/plicCompiler/analyseLexSynt/java-cup-11a.jar" />
+        <pathelement path="${java.class.path}:src/plicCompiler/analyseLexSynt/java-cup.jar" />
     </classpath>
   </java>
   <move file="AnalyseurSyntaxique.java" tofile="${src}/AnalyseurSyntaxique.java" />
