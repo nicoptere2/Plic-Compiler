@@ -13,4 +13,9 @@ public class Classe extends ArbreAbstrait {
 		this.identificateur = idf;
 		this.instructions = list;
 	}
+	
+	@Override
+	public String toString() {
+		return "Classe : " + this.identificateur + "\n" + this.instructions; 
+	}
 }

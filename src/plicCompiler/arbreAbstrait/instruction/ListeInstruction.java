@@ -18,8 +18,11 @@ public class ListeInstruction {
 	@Override
 	public String toString() {
 		StringBuilder s = new StringBuilder();
-		for(Instruction i: instructions)
-			s.append(i.toString());
+		int j=0;
+		for(Instruction i: instructions){
+			System.out.println(j); j++;
+			s.append(i);
+		}
 		
 		return s.toString();
 	}

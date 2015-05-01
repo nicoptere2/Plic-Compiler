@@ -54,14 +54,14 @@ parfer	= \)
 
 %%
 
-";"							{ System.out.print(";");return symbol(CodesLexicaux.POINTVIRGULE); }
-","							{ System.out.print(",");return symbol(CodesLexicaux.VIRGULE); }
+";"							{ return symbol(CodesLexicaux.POINTVIRGULE); }
+","							{ return symbol(CodesLexicaux.VIRGULE); }
 
 {parouv}					{ return symbol(CodesLexicaux.PAROUV); }
 
 {parfer}					{ return symbol(CodesLexicaux.PARFER); }
 
-{equal}						{ System.out.print("=="); return symbol(CodesLexicaux.EQUAL); }
+{equal}						{ return symbol(CodesLexicaux.EQUAL); }
 
 {inf}						{ return symbol(CodesLexicaux.INF); }
 
@@ -81,11 +81,11 @@ vrai						{ return symbol(CodesLexicaux.VRAI); }
 
 faux						{ return symbol(CodesLexicaux.FAUX); }
 
-end							{ return symbol(CodesLexicaux.END); }
+fin							{ return symbol(CodesLexicaux.END); }
 
 
 
-{affect}						{ System.out.print("=");return symbol(CodesLexicaux.AFFECTIDF); }
+{affect}					{ return symbol(CodesLexicaux.AFFECTIDF); }
 
 
 publique					{ return symbol(CodesLexicaux.PUBLIC); }
@@ -98,14 +98,14 @@ ecrire						{ return symbol(CodesLexicaux.ECRIREIDF); }
 
 lire						{ return symbol(CodesLexicaux.LIREIDF); }
 
-classe						{ System.out.print("classe"); return symbol(CodesLexicaux.CLASSEIDF); }
+classe						{ return symbol(CodesLexicaux.CLASSEIDF); }
 
-\"(\\.|[^"])*\"		{ System.out.println("chaine"); return symbol(CodesLexicaux.CHAINE, yytext()); } 
+\".*\"						{ return symbol(CodesLexicaux.CHAINE, yytext()); } 
 
-{idf}						{ System.out.print("idf" + yytext()); return symbol(CodesLexicaux.IDF, yytext()); }
+{idf}						{ return symbol(CodesLexicaux.IDF, yytext()); }
 
 {number}+					{ return symbol(CodesLexicaux.CSTE, yytext()); }
 
-.							{ System.out.print("."); }
-\n 							{ System.out.println();}
+.							{}
+\n 							{}
 

@@ -13,4 +13,9 @@ public class Affectation extends Instruction{
 		this.identificateur = identificateur;
 		this.expression = e;
 	}
+	
+	@Override
+	public String toString() {
+		return this.identificateur + " = " + this.expression + "\n";
+	}
 }

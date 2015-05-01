@@ -14,6 +14,7 @@ import plicCompiler.analyseLexSynt.AnalyseurSyntaxique;
 import plicCompiler.analyseSemantique.AnalyseurSemantique;
 import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
+import plicCompiler.tDS.TDS;
 
 /**
  * @author nico
@@ -49,12 +50,19 @@ public class PlicCompiler {
 		
 		analyserSemantique.check();
 		
+		System.out.println("\n\n" + arbreAbstrait.toString()+ "\n\n");
+		
+		System.out.println(TDS.getInstance().toString() + "\n\n");
+		
+		
+		/*
 		try {
 			file.write(arbreAbstrait.toCode());
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(1);
 		}
+		*/
 		System.out.println("Compilation Effectué");
 		System.out.println("Ecriture dans le fichier : " + file.getOutFilename());
 	}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
 import plicCompiler.arbreAbstrait.Classe;
+import plicCompiler.arbreAbstrait.instruction.Declaration;
 import plicCompiler.arbreAbstrait.instruction.EcrireConstante;
 import plicCompiler.arbreAbstrait.instruction.EcrireIdentificateur;
 import plicCompiler.arbreAbstrait.instruction.Instruction;
@@ -28,7 +29,6 @@ import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparai
 import plicCompiler.tDS.Entre;
 import plicCompiler.tDS.Symbole;
 import plicCompiler.tDS.TDS;
-
 
 
 action code {: /* vide pour le moment */
@@ -95,7 +95,7 @@ terminal Symbol		SUP;
 terminal Symbol		INF;
 terminal Symbol		EQUAL;
 
-terminal Symbol		PLUS;
+terminal Symbol		PLUS, UPLUS;
 terminal Symbol		MINUS, UMINUS;
 terminal Symbol		MUL;
 terminal Symbol		DIV;
@@ -115,6 +115,7 @@ terminal Symbol ENTIER;
 terminal Symbol ECRIREIDF;
 terminal Symbol LIREIDF;
 terminal Symbol CLASSEIDF;
+
 terminal String CHAINE;
 terminal String IDF;
    
@@ -126,11 +127,11 @@ terminal String IDF;
 
 non terminal ArbreAbstrait SYSTEME;
 
-non terminal Classe CLASSE;
+non terminal Classe CLASSE, CLASSECLASSE;
 non terminal ListeInstruction LISTDECL;
 non terminal Instruction DECLARATION ;
 
-non terminal ArbreAbstrait DECL_CHAMP;
+non terminal Declaration DECL_CHAMP;
 non terminal ArrayList<Entre> LISTIDF;
 non terminal Symbole.Statue STATUT;
 non terminal Symbole.Type TYPE;
@@ -145,7 +146,7 @@ non terminal Expression EXPR;
 precedence left PLUS, MINUS, DIFF, SUP, INF;
 precedence left MUL, DIV;
 precedence left EQUAL;
-precedence left UMINUS;
+precedence left UMINUS, UPLUS;
 
 /* ----------------------------Grammar Section-------------------- */
 
@@ -157,11 +158,18 @@ SYSTEME		::=		CLASSE:c
 					:}
 			;
 
-CLASSE		::=		CLASSEIDF IDF:idf LISTDECL:lst END
+CLASSE		::=		CLASSECLASSE IDF:idf LISTDECL:lst END
 					{:
-						System.out.println("classe : " + idf);
-						TDS.getInstance().entrerBlock();
+						//System.out.println("classe : " + idf);
+						TDS.getInstance().sortirBlock();
+						TDS.getInstance().ajouter(new Entre(idf), new Symbole(Symbole.Type.CLASS));
 						RESULT = new Classe(new Identificateur(idf), lst);
+					:}
+			;
+			
+CLASSECLASSE::=		CLASSEIDF
+					{:
+						TDS.getInstance().entrerBlock();
 					:}
 			;
 
@@ -170,9 +178,18 @@ LISTDECL	::=		DECLARATION:d LISTDECL:lst
 						lst.add(d);
 						RESULT = lst;
 					:}
+			|		DECLARATION:d
+					{:
+						ListeInstruction lst = new ListeInstruction();
+						lst.add(d);
+						RESULT = lst;
+					:}
 			;
 
-DECLARATION	::=		DECL_CHAMP POINTVIRGULE
+DECLARATION	::=		DECL_CHAMP:d POINTVIRGULE
+					{:
+						RESULT = d;
+					:}
 			|		INSTRUCTION:lst POINTVIRGULE
 					{:
 						RESULT = lst;
@@ -181,19 +198,15 @@ DECLARATION	::=		DECL_CHAMP POINTVIRGULE
 
 DECL_CHAMP	::=		STATUT:s TYPE:t LISTIDF:idfs 
 					{:
-						System.out.println("fhdqqslfhdskqhfjdk");
+						//System.out.println("fhdqqslfhdskqhfjdk");
 						TDS.getInstance().ajouter(idfs, new Symbole(s, t));
+						RESULT = new Declaration(idfs);
 					:}
-	/*		|		STATUT:s TYPE:t IDF:idf
-					{:
-						System.out.println("coucou 2");
-						TDS.getInstance().ajouter(new Entre(idf), new Symbole(s, t));
-					:}
-		*/	;
-
+			;
+			
 LISTIDF		::=		IDF:idf VIRGULE LISTIDF:list
 					{:
-						System.out.println("coucou");
+						//System.out.println("coucou");
 						list.add(new Entre(idf));
 						RESULT = list;
 					:}
@@ -272,7 +285,7 @@ EXPR	::=		CSTE:c
 		        :}
 		|		IDF:idf
 				{:
-					System.out.printf("je suis un identificateur!!");
+					//System.out.printf("je suis un identificateur!!");
 					RESULT = new Identificateur(idf);
 				:}
 		|		EXPR:e1 PLUS EXPR:e2
@@ -315,4 +328,8 @@ EXPR	::=		CSTE:c
 				{:
 					RESULT = new ExpressionNegative(e);
 				:}  %prec UMINUS
+		|		PLUS EXPR:e
+				{:
+					RESULT = new Expression(e);
+				:}  %prec UPLUS
          ;

@@ -14,7 +14,7 @@ public abstract class OperationArithmetique extends OperationBinaire{
 
 	@Override
 	public String toString() {
-		return this.operandeGauche + this.operateur + this.operandeDroite;
+		return this.operandeGauche + " " + ((this.operateur==null)? "?" : this.operateur) + " " + this.operandeDroite;
 	}
 
 	@Override

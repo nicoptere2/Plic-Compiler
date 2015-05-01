@@ -10,10 +10,14 @@ public class ArbreAbstrait {
 
 	public String toCode(){
 		return null;
-		
 	}
 
 	public void checkType() throws TypeIncompatibleException {
+	}
+	
+	@Override
+	public String toString() {
+		return "arbre";
 	}
 	
 	

@@ -36,8 +36,12 @@ public class TDS {
 	}
 	
 	public void ajouter(ArrayList<Entre> listE, Symbole s) {
-		System.out.println("taille" + listE.size());
 		for(Entre e: listE)
 			currentBlock.add(e,s);
+	}
+	
+	@Override
+	public String toString() {
+		return currentBlock.toString();
 	}
 }
