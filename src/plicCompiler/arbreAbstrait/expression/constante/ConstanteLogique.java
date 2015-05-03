@@ -10,7 +10,7 @@ public class ConstanteLogique extends Constante{
 	}
 	
 	@Override
-	public void checkType() {
+	public void check() {
 		this.type = Expression.Type.LOGICAL;
 	}
 

@@ -44,8 +44,8 @@ public class Expression extends ArbreAbstrait {
 	}
 	
 	@Override
-	public void checkType() throws TypeIncompatibleException{
-		exp.checkType();
+	public void check() throws TypeIncompatibleException{
+		exp.check();
 		this.type = exp.getType();
 	}
 	

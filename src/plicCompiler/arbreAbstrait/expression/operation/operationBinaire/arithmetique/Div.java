@@ -16,8 +16,8 @@ public class Div extends OperationArithmetique {
 	}
 	
 	@Override
-	public void checkType() throws TypeIncompatibleException {
-		super.checkType();
+	public void check() throws TypeIncompatibleException {
+		super.check();
 		if((this.operandeGauche.getType() != Expression.Type.ARITMETICAL) || (this.operandeDroite.getType() != Expression.Type.ARITMETICAL))
 			throw new TypeIncompatibleException();
 	}

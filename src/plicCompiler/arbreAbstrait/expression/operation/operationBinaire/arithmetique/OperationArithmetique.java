@@ -23,9 +23,9 @@ public abstract class OperationArithmetique extends OperationBinaire{
 	protected abstract void setOperateur();
 	
 	@Override
-	public void checkType() throws TypeIncompatibleException {
-		this.operandeGauche.checkType();
-		this.operandeDroite.checkType();
+	public void check() throws TypeIncompatibleException {
+		this.operandeGauche.check();
+		this.operandeDroite.check();
 		
 		if(this.operandeGauche.getType() !=  this.operandeDroite.getType() )
 			throw new TypeIncompatibleException("Differents type d'operateur trouv�");

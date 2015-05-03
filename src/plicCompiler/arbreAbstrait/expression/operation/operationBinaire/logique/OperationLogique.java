@@ -18,9 +18,9 @@ public abstract class OperationLogique extends OperationBinaire {
 	protected abstract String getInstr();
 	
 	@Override
-	public void checkType() throws TypeIncompatibleException {
-		this.operandeGauche.checkType();
-		this.operandeDroite.checkType();
+	public void check() throws TypeIncompatibleException {
+		this.operandeGauche.check();
+		this.operandeDroite.check();
 		
 		if((this.operandeGauche.getType() != Expression.Type.LOGICAL) || (this.operandeDroite.getType() != Expression.Type.LOGICAL))
 			throw new TypeIncompatibleException();

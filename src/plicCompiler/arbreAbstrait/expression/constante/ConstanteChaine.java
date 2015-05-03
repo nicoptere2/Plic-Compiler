@@ -8,7 +8,7 @@ public class ConstanteChaine extends Constante {
 	}
 
 	@Override
-	public void checkType() {
+	public void check() {
 		// TODO Auto-generated method stub
 	}
 	

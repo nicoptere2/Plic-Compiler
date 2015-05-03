@@ -25,5 +25,5 @@ public abstract class Constante extends Expression {
 	}
 	
 	@Override
-	public abstract void checkType();
+	public abstract void check();
 }

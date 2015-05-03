@@ -12,7 +12,7 @@ public class ArbreAbstrait {
 		return null;
 	}
 
-	public void checkType() throws TypeIncompatibleException {
+	public void check() throws TypeIncompatibleException {
 	}
 	
 	@Override

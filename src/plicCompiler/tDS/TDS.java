@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class TDS {
 	
 	private static TDS instance = null;
+
+	public static int deplacementInitial = 16;
 	
 	private LocalDictionnary currentBlock;
 	
@@ -37,11 +39,16 @@ public class TDS {
 	
 	public void ajouter(ArrayList<Entre> listE, Symbole s) {
 		for(Entre e: listE)
-			currentBlock.add(e,s);
+			currentBlock.add(e, s.clone());
 	}
 	
 	@Override
 	public String toString() {
 		return currentBlock.toString();
+	}
+
+	public void check() {
+		System.out.println("coucou c'est moi");
+		this.currentBlock.checkAll();
 	}
 }

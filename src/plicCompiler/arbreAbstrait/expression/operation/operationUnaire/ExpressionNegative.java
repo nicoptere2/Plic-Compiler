@@ -20,8 +20,8 @@ public class ExpressionNegative extends OperationUnaire{
 	}
 	
 	@Override
-	public void checkType() throws TypeIncompatibleException{
-		this.exp.checkType();
+	public void check() throws TypeIncompatibleException{
+		this.exp.check();
 		if(this.exp.getType() != Expression.Type.ARITMETICAL)
 			throw new TypeIncompatibleException();
 		

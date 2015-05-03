@@ -25,7 +25,7 @@ public abstract class OperationBinaire extends Expression{
 	
 	protected abstract String getInstr();
 	
-	public abstract void checkType() throws TypeIncompatibleException;
+	public abstract void check() throws TypeIncompatibleException;
 	
 	public String toCode() {
 		StringBuilder code = new StringBuilder();

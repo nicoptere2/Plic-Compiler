@@ -15,8 +15,8 @@ public class Not extends OperationUnaire {
 	}
 
 	@Override
-	public void checkType() throws TypeIncompatibleException{
-		this.exp.checkType();
+	public void check() throws TypeIncompatibleException{
+		this.exp.check();
 		if(this.exp.getType() != Expression.Type.LOGICAL)
 			throw new TypeIncompatibleException();
 		

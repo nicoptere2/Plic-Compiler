@@ -9,7 +9,7 @@ public class ConstanteArithmetique extends Constante{
 	}
 
 	@Override
-	public void checkType() {
+	public void check() {
 		this.type = Expression.Type.ARITMETICAL;
 	}
 }
