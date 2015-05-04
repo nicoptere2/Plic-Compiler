@@ -1,13 +1,14 @@
 package plicCompiler.arbreAbstrait.instruction;
 
 import plicCompiler.arbreAbstrait.expression.constante.ConstanteChaine;
+import plicCompiler.arbreAbstrait.expression.constante.ListChaine;
 
 public class EcrireConstante extends Ecrire {
 	
-	private ConstanteChaine chaine;
+	private String etiquette;
 	
 	public EcrireConstante(ConstanteChaine chaine) {
-		this.chaine = chaine;
+		etiquette = ListChaine.getInstance().push(chaine);
 	}
 	
 
@@ -25,6 +26,6 @@ public class EcrireConstante extends Ecrire {
 	
 	@Override
 	public String toString() {
-		return "ecrire (" + chaine.toString() + ")\n";
+		return "ecrire (" + etiquette + ")\n";
 	}
 }

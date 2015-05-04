@@ -1,5 +1,6 @@
 package plicCompiler.arbreAbstrait.instruction;
 
+import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
 import plicCompiler.arbreAbstrait.expression.Expression;
 import plicCompiler.arbreAbstrait.expression.Identificateur;
 import plicCompiler.tDS.Symbole;
@@ -20,21 +21,24 @@ public class Affectation extends Instruction{
 	@Override
 	public String toCode() {
 		
-		System.out.println("coucou c'est nous => " + TDS.getInstance().getCurrentDictionnary());
-		
-		
 		StringBuilder s = new StringBuilder();
 		
-		s.append("# Affectation de la variable!\n");
+		s.append("# Affectation de la variable '" + this.identificateur + "' !\n");
 		Symbole sym = TDS.getInstance().identifier(identificateur);
 		s.append(this.expression.toCode());
-		s.append("sw $v0, -" + sym.getDeplacement() + "($sp)\n");
+		s.append("sw $v0, -" + sym.getDeplacement() + "($s7)\n");
 		return s.toString();
 	}
 
 	@Override
-	public void check() {
-		// TODO Auto-generated method stub
+	public void check() throws TypeIncompatibleException {
+		try{
+		expression.check();
+		} catch(TypeIncompatibleException e) {
+			System.out.println("c'est ici...");
+		}
+		if(expression.getType() == Expression.Type.LOGICAL)
+			throw new TypeIncompatibleException("Affectation impossible du a une erreur de type");
 		
 	}
 	

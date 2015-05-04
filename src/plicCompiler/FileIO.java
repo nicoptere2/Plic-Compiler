@@ -58,8 +58,6 @@ public class FileIO {
     	fw = new FileWriter(file.getAbsoluteFile(), false);
     	BufferedWriter writer = new BufferedWriter(fw);
     	
-    	//System.out.println(code);
-    	
     	writer.write(code);
 
 		writer.close();

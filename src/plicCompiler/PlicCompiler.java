@@ -14,6 +14,7 @@ import plicCompiler.analyseLexSynt.AnalyseurSyntaxique;
 import plicCompiler.analyseSemantique.AnalyseurSemantique;
 import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
+import plicCompiler.arbreAbstrait.expression.constante.ListChaine;
 import plicCompiler.tDS.TDS;
 
 /**
@@ -46,18 +47,29 @@ public class PlicCompiler {
 			System.exit(1);
 		}
 		
+		System.out.println("Arbre = \n" + arbreAbstrait.toString());
+		
 		AnalyseurSemantique analyserSemantique = new AnalyseurSemantique(arbreAbstrait);
+		
+		System.out.println("Analyse Semantique :");
 		
 		analyserSemantique.check();
 		
-		System.out.println("\n\n" + arbreAbstrait.toString()+ "\n\n");
+		//System.out.println("\n\n" + arbreAbstrait.toString()+ "\n\n");
 		
-		System.out.println(TDS.getInstance().toString() + "\n\n");
+		//System.out.println(TDS.getInstance().toString() + "\n\n");
 		
+		StringBuilder s = new StringBuilder();
+		s.append(".data\n");
+		s.append(ListChaine.getInstance().toCode());
+		
+		s.append(".text\n");
+		
+		s.append(arbreAbstrait.toCode());
 		
 		
 		try {
-			file.write(arbreAbstrait.toCode());
+			file.write(s.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(1);

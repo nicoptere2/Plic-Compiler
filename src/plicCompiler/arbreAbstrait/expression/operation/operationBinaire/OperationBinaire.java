@@ -31,7 +31,7 @@ public abstract class OperationBinaire extends Expression{
 		StringBuilder code = new StringBuilder();
 		
 		
-		code.append("#Operation arithmetique!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+		code.append("\n\n#Operation arithmetique!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 		code.append(this.operandeGauche.toCode());
 		code.append("#Chargement Operande gauche dans la pile\n");
 		code.append("sw $v0, ($sp)\n");

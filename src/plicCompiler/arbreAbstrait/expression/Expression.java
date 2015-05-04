@@ -10,7 +10,7 @@ public class Expression extends ArbreAbstrait {
 	
 	protected Type type;
 	
-	protected enum Type {LOGICAL, ARITMETICAL;};
+	public enum Type {LOGICAL, ARITMETICAL;};
 	
 	public Expression(){
 	}

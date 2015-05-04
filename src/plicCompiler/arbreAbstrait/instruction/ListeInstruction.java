@@ -2,6 +2,7 @@ package plicCompiler.arbreAbstrait.instruction;
 
 import java.util.ArrayList;
 
+import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
 
 public class ListeInstruction {
@@ -26,12 +27,14 @@ public class ListeInstruction {
 	@Override
 	public String toString() {
 		StringBuilder s = new StringBuilder();
-		int j=0;
-		for(Instruction i: instructions){
-			System.out.println(j); j++;
+		for(Instruction i: instructions)
 			s.append(i);
-		}
 		
 		return s.toString();
+	}
+
+	public void check() throws TypeIncompatibleException {
+		for(Instruction i: instructions)
+			i.check();
 	}
 }

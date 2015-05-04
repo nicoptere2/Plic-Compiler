@@ -1,7 +1,6 @@
 package plicCompiler.analyseLexSynt ;
 
 import java.util.ArrayList;
-
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
 import plicCompiler.arbreAbstrait.Classe;
 import plicCompiler.arbreAbstrait.instruction.Declaration;
@@ -26,7 +25,6 @@ import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparai
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparaison.GreaterThan;
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparaison.LowerThan;
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparaison.Different;
-import plicCompiler.tDS.Identificateur;
 import plicCompiler.tDS.Symbole;
 import plicCompiler.tDS.TDS;
 
@@ -132,7 +130,7 @@ non terminal ListeInstruction LISTDECL;
 non terminal Instruction DECLARATION ;
 
 non terminal Declaration DECL_CHAMP;
-non terminal ArrayList<Entre> LISTIDF;
+non terminal ArrayList<Identificateur> LISTIDF;
 non terminal Symbole.Statue STATUT;
 non terminal Symbole.Type TYPE;
 
@@ -162,7 +160,7 @@ CLASSE		::=		CLASSECLASSE IDF:idf LISTDECL:lst END
 					{:
 						//System.out.println("classe : " + idf);
 						TDS.getInstance().sortirBlock();
-						TDS.getInstance().ajouter(new Entre(idf), new Symbole(Symbole.Type.CLASS));
+						TDS.getInstance().ajouter(new Identificateur(idf), new Symbole(Symbole.Type.CLASS));
 						RESULT = new Classe(new Identificateur(idf), lst);
 					:}
 			;
@@ -173,7 +171,7 @@ CLASSECLASSE::=		CLASSEIDF
 					:}
 			;
 
-LISTDECL	::=		DECLARATION:d LISTDECL:lst
+LISTDECL	::=		LISTDECL:lst DECLARATION:d
 					{:
 						lst.add(d);
 						RESULT = lst;
@@ -204,16 +202,16 @@ DECL_CHAMP	::=		STATUT:s TYPE:t LISTIDF:idfs
 					:}
 			;
 			
-LISTIDF		::=		IDF:idf VIRGULE LISTIDF:list
+LISTIDF		::=		LISTIDF:list VIRGULE IDF:idf 
 					{:
 						//System.out.println("coucou");
-						list.add(new Entre(idf));
+						list.add(new Identificateur(idf));
 						RESULT = list;
 					:}
 			|		IDF: idf
 					{:
-						ArrayList<Entre> list = new ArrayList<Entre>();
-						list.add(new Entre(idf));
+						ArrayList<Identificateur> list = new ArrayList<Identificateur>();
+						list.add(new Identificateur(idf));
 						RESULT = list;
 					:}
 			;

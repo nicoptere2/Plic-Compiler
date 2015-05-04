@@ -1,7 +1,5 @@
 package plicCompiler.arbreAbstrait;
 
-import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
-
 public class ArbreAbstrait {
 	
 	public ArbreAbstrait() {
@@ -12,7 +10,7 @@ public class ArbreAbstrait {
 		return null;
 	}
 
-	public void check() throws TypeIncompatibleException {
+	public void check() throws Exception {
 	}
 	
 	@Override

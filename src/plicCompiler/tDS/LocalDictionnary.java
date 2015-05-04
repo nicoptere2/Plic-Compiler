@@ -16,6 +16,8 @@ public class LocalDictionnary {
 	private Vector<LocalDictionnary> children;
 	private int currentChild = 0;
 	
+	private int taille = 0;
+	
 	private int idBlock;
 	
 	private Map<Identificateur, Symbole> dictionnary;
@@ -45,10 +47,11 @@ public class LocalDictionnary {
 	}
 	
 	public LocalDictionnary nextChild() {
-		return this.children.get(currentChild++);
+		return this.children.get(currentChild);
 	}
 
 	public LocalDictionnary getFather() {
+		this.currentChild = 0;
 		return this.father;
 	}
 
@@ -77,6 +80,7 @@ public class LocalDictionnary {
 			m.getValue().setDeplacement(deplacement);
 			deplacement += m.getValue().getTaille();
 		}
+		this.taille = deplacement;
 	}
 	
 	public Symbole identifier(Identificateur e) {
@@ -91,6 +95,43 @@ public class LocalDictionnary {
 			return null;
 			
 		
+	}
+	
+	public String codeEntre() {
+		StringBuilder s = new StringBuilder();
+		
+		s.append("\n\n");
+		
+		s.append("# Entre dans un block\n");
+		
+		s.append("# initialisation @retour\n");
+		s.append("sw $s7, ($sp)\n");
+		
+		s.append("# initialiser s7 avec sp (initialisation de la base des variables)\n");
+		s.append("move $s7,$sp\n");
+    
+		s.append("# r�servation de l'espace pour " + this.dictionnary.size() + " variables\n");
+		s.append("addi $sp, $sp, -" + this.taille + "\n");
+		
+		s.append("# numero de region\n");
+		s.append("li $v0, " + this.idBlock + "\n");
+		s.append("sw $v0, -8($s7)\n\n\n");
+		
+		return s.toString();
+	}
+	
+	public String codeSortie() {
+		StringBuilder s = new StringBuilder();
+		
+		s.append("# Sortie d'un block \n");
+		
+		s.append("# deplacement sommet pile\n");
+		s.append("move $sp, $s7\n");
+		
+		s.append("# deplacement de la base du block\n");
+		s.append("lw $s7, ($sp)\n");
+		
+		return s.toString();
 	}
 	
 	@Override
@@ -110,4 +151,5 @@ public class LocalDictionnary {
 		
 		return s.toString();
 	}
+
 }

@@ -8,7 +8,7 @@ public class TDS {
 	
 	private static TDS instance = null;
 
-	public static int deplacementInitial = 16;
+	public static int deplacementInitial = 12;
 	
 	private boolean analyseSyntaxique = true;
 	
@@ -28,12 +28,15 @@ public class TDS {
 	}
 	
 	public void entrerBlock() {
+		System.out.println("boolean : " + analyseSyntaxique);
 		if(this.analyseSyntaxique){
 			idBlock++;
 			currentBlock = currentBlock.newChild(idBlock);
 		}
 		else {
+			System.out.println("salut" + currentBlock);
 			currentBlock = currentBlock.nextChild();
+			System.out.println(currentBlock);
 		}
 	}
 	
@@ -53,6 +56,10 @@ public class TDS {
 	public void setAnalyseSyntaxique(boolean analyseSyntaxique) {
 		this.analyseSyntaxique = analyseSyntaxique;
 	}
+	
+	public String toCode() {
+		return this.currentBlock.codeEntre();
+	}
 
 	@Override
 	public String toString() {
@@ -60,7 +67,6 @@ public class TDS {
 	}
 
 	public void check() {
-		System.out.println("coucou c'est moi");
 		this.currentBlock.checkAll();
 	}
 
@@ -71,4 +77,13 @@ public class TDS {
 	public LocalDictionnary getCurrentDictionnary() {
 		return this.currentBlock;
 	}
+
+	public String codeEntre() {
+		return this.currentBlock.codeEntre();
+	}
+
+	public String codeSortie() {
+		return this.currentBlock.codeSortie();
+	}
+
 }
