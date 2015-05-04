@@ -10,6 +10,19 @@ public class EcrireConstante extends Ecrire {
 		this.chaine = chaine;
 	}
 	
+
+	@Override
+	public String toCode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void check() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	@Override
 	public String toString() {
 		return "ecrire (" + chaine.toString() + ")\n";

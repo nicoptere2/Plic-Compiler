@@ -11,6 +11,19 @@ public class EcrireIdentificateur extends Ecrire{
 		this.identificateur = expression;
 	}
 	
+
+	@Override
+	public String toCode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void check() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	@Override
 	public String toString() {
 		return "ecrire (" + identificateur.toString() + ")\n";

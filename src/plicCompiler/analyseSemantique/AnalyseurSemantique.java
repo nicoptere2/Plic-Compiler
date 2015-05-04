@@ -14,6 +14,7 @@ public class AnalyseurSemantique {
 
 	public void check(){
 		try {
+			TDS.getInstance().setAnalyseSyntaxique(false);
 			TDS.getInstance().check();
 			arbreAbstrait.check();
 		} catch (TypeIncompatibleException e) {

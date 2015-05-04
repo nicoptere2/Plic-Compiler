@@ -6,22 +6,26 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Vector;
+
+import plicCompiler.arbreAbstrait.expression.Identificateur;
 
 public class LocalDictionnary {
 	
 	private LocalDictionnary father;
-	private Queue<LocalDictionnary> children;
+	private Vector<LocalDictionnary> children;
+	private int currentChild = 0;
 	
 	private int idBlock;
 	
-	private Map<Entre, Symbole> dictionnary;
+	private Map<Identificateur, Symbole> dictionnary;
 	
 	public LocalDictionnary() {
 		this.father = null;
 		this.idBlock = 0;
-		children = new PriorityQueue<LocalDictionnary>();
+		children = new Vector<LocalDictionnary>();
 		
-		this.dictionnary = new HashMap<Entre, Symbole>();
+		this.dictionnary = new HashMap<Identificateur, Symbole>();
 	}
 	
 	private LocalDictionnary(LocalDictionnary father, int idBlock) {
@@ -29,8 +33,8 @@ public class LocalDictionnary {
 		this.idBlock = idBlock;
 
 		
-		children = new PriorityQueue<LocalDictionnary>();
-		this.dictionnary = new Hashtable<Entre, Symbole>();
+		children = new Vector<LocalDictionnary>();
+		this.dictionnary = new Hashtable<Identificateur, Symbole>();
 	}
 
 	public LocalDictionnary newChild(int idBlock) {
@@ -39,12 +43,16 @@ public class LocalDictionnary {
 		
 		return tmp;
 	}
+	
+	public LocalDictionnary nextChild() {
+		return this.children.get(currentChild++);
+	}
 
 	public LocalDictionnary getFather() {
 		return this.father;
 	}
 
-	public void add(Entre e, Symbole s) {
+	public void add(Identificateur e, Symbole s) {
 		dictionnary.put(e, s);
 	}
 	
@@ -64,31 +72,25 @@ public class LocalDictionnary {
 	 */
 	public void check() {
 		int deplacement = TDS.deplacementInitial;
-		for(Entry<Entre, Symbole> m : this.dictionnary.entrySet()){
+		for(Entry<Identificateur, Symbole> m : this.dictionnary.entrySet()){
 			m.getValue().setIdBlock(idBlock);
 			m.getValue().setDeplacement(deplacement);
 			deplacement += m.getValue().getTaille();
 		}
 	}
 	
-	public Symbole identifier(Entre e) {
+	public Symbole identifier(Identificateur e) {
 		
 		if(this.dictionnary.containsKey(e))
 			return this.dictionnary.get(e);
 		
-		Symbole s = this.father.identifier(e);
 		
-		if(s != null)
-			return s;
-		else {
-			// TODO throw runtime error
-		}
+		if(this.father != null)
+			return this.father.identifier(e);
+		else
+			return null;
+			
 		
-		
-		if(this.father == null){
-			// TODO throw runtime error
-		}
-		return null;
 	}
 	
 	@Override
@@ -96,7 +98,7 @@ public class LocalDictionnary {
 		StringBuilder s = new StringBuilder();
 		
 		s.append("idBlock = " + idBlock + "\n");
-		for(Entry<Entre, Symbole> m : this.dictionnary.entrySet()){
+		for(Entry<Identificateur, Symbole> m : this.dictionnary.entrySet()){
 			s.append("\t" + m.getKey() + "\t\t=>\t" + m.getValue() + "\n");
 		}
 		

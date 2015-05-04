@@ -55,14 +55,14 @@ public class PlicCompiler {
 		System.out.println(TDS.getInstance().toString() + "\n\n");
 		
 		
-		/*
+		
 		try {
 			file.write(arbreAbstrait.toCode());
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(1);
 		}
-		*/
+		
 		System.out.println("Compilation Effectué");
 		System.out.println("Ecriture dans le fichier : " + file.getOutFilename());
 	}

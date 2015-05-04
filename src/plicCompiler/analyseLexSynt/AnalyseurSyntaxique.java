@@ -7,6 +7,7 @@
 package plicCompiler.analyseLexSynt;
 
 import java.util.ArrayList;
+
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
 import plicCompiler.arbreAbstrait.Classe;
 import plicCompiler.arbreAbstrait.instruction.Declaration;
@@ -31,7 +32,6 @@ import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparai
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparaison.GreaterThan;
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparaison.LowerThan;
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparaison.Different;
-import plicCompiler.tDS.Entre;
 import plicCompiler.tDS.Symbole;
 import plicCompiler.tDS.TDS;
 
@@ -645,13 +645,13 @@ class CUP$AnalyseurSyntaxique$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 10: // LISTIDF ::= IDF 
             {
-              ArrayList<Entre> RESULT =null;
+              ArrayList<Identificateur> RESULT =null;
 		int idfleft = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left;
 		int idfright = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).right;
 		String idf = (String)((java_cup.runtime.Symbol) CUP$AnalyseurSyntaxique$stack.peek()).value;
 		
-						ArrayList<Entre> list = new ArrayList<Entre>();
-						list.add(new Entre(idf));
+						ArrayList<Identificateur> list = new ArrayList<Identificateur>();
+						list.add(new Identificateur(idf));
 						RESULT = list;
 					
               CUP$AnalyseurSyntaxique$result = parser.getSymbolFactory().newSymbol("LISTIDF",6, ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()), RESULT);
@@ -661,16 +661,16 @@ class CUP$AnalyseurSyntaxique$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 9: // LISTIDF ::= IDF VIRGULE LISTIDF 
             {
-              ArrayList<Entre> RESULT =null;
+              ArrayList<Identificateur> RESULT =null;
 		int idfleft = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.elementAt(CUP$AnalyseurSyntaxique$top-2)).left;
 		int idfright = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.elementAt(CUP$AnalyseurSyntaxique$top-2)).right;
 		String idf = (String)((java_cup.runtime.Symbol) CUP$AnalyseurSyntaxique$stack.elementAt(CUP$AnalyseurSyntaxique$top-2)).value;
 		int listleft = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left;
 		int listright = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).right;
-		ArrayList<Entre> list = (ArrayList<Entre>)((java_cup.runtime.Symbol) CUP$AnalyseurSyntaxique$stack.peek()).value;
+		ArrayList<Identificateur> list = (ArrayList<Identificateur>)((java_cup.runtime.Symbol) CUP$AnalyseurSyntaxique$stack.peek()).value;
 		
 						//System.out.println("coucou");
-						list.add(new Entre(idf));
+						list.add(new Identificateur(idf));
 						RESULT = list;
 					
               CUP$AnalyseurSyntaxique$result = parser.getSymbolFactory().newSymbol("LISTIDF",6, ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.elementAt(CUP$AnalyseurSyntaxique$top-2)), ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()), RESULT);
@@ -689,7 +689,7 @@ class CUP$AnalyseurSyntaxique$actions {
 		Symbole.Type t = (Symbole.Type)((java_cup.runtime.Symbol) CUP$AnalyseurSyntaxique$stack.elementAt(CUP$AnalyseurSyntaxique$top-1)).value;
 		int idfsleft = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).left;
 		int idfsright = ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()).right;
-		ArrayList<Entre> idfs = (ArrayList<Entre>)((java_cup.runtime.Symbol) CUP$AnalyseurSyntaxique$stack.peek()).value;
+		ArrayList<Identificateur> idfs = (ArrayList<Identificateur>)((java_cup.runtime.Symbol) CUP$AnalyseurSyntaxique$stack.peek()).value;
 		
 						//System.out.println("fhdqqslfhdskqhfjdk");
 						TDS.getInstance().ajouter(idfs, new Symbole(s, t));
@@ -785,7 +785,7 @@ class CUP$AnalyseurSyntaxique$actions {
 		
 						//System.out.println("classe : " + idf);
 						TDS.getInstance().sortirBlock();
-						TDS.getInstance().ajouter(new Entre(idf), new Symbole(Symbole.Type.CLASS));
+						TDS.getInstance().ajouter(new Identificateur(idf), new Symbole(Symbole.Type.CLASS));
 						RESULT = new Classe(new Identificateur(idf), lst);
 					
               CUP$AnalyseurSyntaxique$result = parser.getSymbolFactory().newSymbol("CLASSE",1, ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.elementAt(CUP$AnalyseurSyntaxique$top-3)), ((java_cup.runtime.Symbol)CUP$AnalyseurSyntaxique$stack.peek()), RESULT);

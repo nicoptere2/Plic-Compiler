@@ -15,6 +15,14 @@ public class ListeInstruction {
 		this.instructions.add(inst);
 	}
 	
+	public String toCode() {
+		StringBuilder s = new StringBuilder();
+		for(Instruction i : instructions)
+			s.append(i.toCode());
+		
+		return s.toString(); 
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder s = new StringBuilder();

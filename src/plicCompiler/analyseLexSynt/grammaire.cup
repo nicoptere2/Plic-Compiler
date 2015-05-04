@@ -26,7 +26,7 @@ import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparai
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparaison.GreaterThan;
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparaison.LowerThan;
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparaison.Different;
-import plicCompiler.tDS.Entre;
+import plicCompiler.tDS.Identificateur;
 import plicCompiler.tDS.Symbole;
 import plicCompiler.tDS.TDS;
 

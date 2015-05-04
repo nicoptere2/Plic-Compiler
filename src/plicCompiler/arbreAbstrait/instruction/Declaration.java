@@ -2,21 +2,34 @@ package plicCompiler.arbreAbstrait.instruction;
 
 import java.util.ArrayList;
 
-import plicCompiler.tDS.Entre;
+import plicCompiler.arbreAbstrait.expression.Identificateur;
 
 public class Declaration extends Instruction{
 	
-	private ArrayList<Entre> identifiants;
+	private ArrayList<Identificateur> identifiants;
 
-	public Declaration(ArrayList<Entre> idfs) {
+	public Declaration(ArrayList<Identificateur> idfs) {
 		identifiants = idfs;
+	}
+	
+
+	@Override
+	public String toCode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void check() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	@Override
 	public String toString() {
 		StringBuilder s = new StringBuilder();
 		s.append("Declaration : ");
-		for(Entre e : identifiants)
+		for(Identificateur e : identifiants)
 			s.append(e+", ");
 		
 		s.append("\n");
