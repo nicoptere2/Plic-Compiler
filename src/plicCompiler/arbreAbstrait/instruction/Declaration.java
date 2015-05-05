@@ -15,8 +15,7 @@ public class Declaration extends Instruction{
 
 	@Override
 	public String toCode() {
-		// TODO Auto-generated method stub
-		return null;
+		return "# Declaration de variables \n";
 	}
 
 	@Override

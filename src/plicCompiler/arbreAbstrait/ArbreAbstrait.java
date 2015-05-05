@@ -7,7 +7,7 @@ public class ArbreAbstrait {
 	}
 
 	public String toCode(){
-		return null;
+		return "\n";
 	}
 
 	public void check() throws Exception {

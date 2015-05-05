@@ -64,6 +64,7 @@ public class PlicCompiler {
 		s.append(ListChaine.getInstance().toCode());
 		
 		s.append(".text\n");
+		s.append("main:\n");
 		
 		s.append(arbreAbstrait.toCode());
 		

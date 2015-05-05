@@ -14,8 +14,14 @@ public class EcrireConstante extends Ecrire {
 
 	@Override
 	public String toCode() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder s = new StringBuilder();
+		
+		s.append("# Ecriture de la chaine de caractere'" + etiquette + "' \n");
+		s.append("la $a0, " + etiquette + "\n");
+		s.append("li $v0 , 4\n");
+		s.append("syscall\n");
+		
+		return s.toString();
 	}
 
 	@Override

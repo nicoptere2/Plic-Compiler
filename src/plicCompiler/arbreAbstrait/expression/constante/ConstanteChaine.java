@@ -1,6 +1,6 @@
 package plicCompiler.arbreAbstrait.expression.constante;
 
-public class ConstanteChaine extends Constante {
+public class ConstanteChaine extends Constante{
 
 	public ConstanteChaine(String c) {
 		super(c);
@@ -10,6 +10,11 @@ public class ConstanteChaine extends Constante {
 	@Override
 	public void check() {
 		// TODO Auto-generated method stub
+	}
+	
+	@Override
+	public String toCode() {		
+		return "\t.asciiz " + super.toString() ;
 	}
 	
 	@Override
