@@ -2,6 +2,7 @@ package plicCompiler.arbreAbstrait.expression.operation.operationBinaire.arithme
 
 import plicCompiler.arbreAbstrait.expression.Expression;
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.OperationBinaire;
+import plicCompiler.tDS.Symbole;
 
 public class Sub extends OperationArithmetique {
 
@@ -16,9 +17,9 @@ public class Sub extends OperationArithmetique {
 
 	@Override
 	protected void setOperateur() {
-		if(this.type == Expression.Type.ARITMETICAL)
+		if(this.type == Symbole.Type.ENTIER)
 			this.operateur = "sub";
-		else
+		else if(this.type == Symbole.Type.BOOL)
 			this.operateur = "xor";
 	}
 

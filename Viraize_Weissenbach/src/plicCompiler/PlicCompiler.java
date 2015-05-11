@@ -12,7 +12,7 @@ import java.io.IOException;
 import plicCompiler.analyseLexSynt.AnalyseurLexical;
 import plicCompiler.analyseLexSynt.AnalyseurSyntaxique;
 import plicCompiler.analyseSemantique.AnalyseurSemantique;
-import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
+import plicCompiler.exception.TypeIncompatibleException;
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
 
 /**

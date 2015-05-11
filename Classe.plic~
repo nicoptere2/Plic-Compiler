@@ -1,6 +1,6 @@
 classe Essai
 b = 4 ;
-publique entier b;
+publique entier a, b;
 a = 0 ;
 privee entier c1, d2, de ;
 privee entier A, unNomDidentificateurTresLongPourEmbeterLesCompilateursDuLangagePlic ;

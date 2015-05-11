@@ -1,8 +1,8 @@
 package plicCompiler.arbreAbstrait.expression.operation.operationBinaire.arithmetique;
 
-import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
 import plicCompiler.arbreAbstrait.expression.Expression;
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.OperationBinaire;
+import plicCompiler.exception.SemantiqueException;
 
 public abstract class OperationArithmetique extends OperationBinaire{
 	
@@ -23,12 +23,12 @@ public abstract class OperationArithmetique extends OperationBinaire{
 	protected abstract void setOperateur();
 	
 	@Override
-	public void check() throws TypeIncompatibleException {
+	public void check() throws Exception {
 		this.operandeGauche.check();
 		this.operandeDroite.check();
 		
 		if(this.operandeGauche.getType() !=  this.operandeDroite.getType() )
-			throw new TypeIncompatibleException("Differents type d'operateur trouv�");
+			throw new SemantiqueException("Differents type d'operateur trouv�");
 		
 		this.setType(this.operandeDroite.getType());
 		

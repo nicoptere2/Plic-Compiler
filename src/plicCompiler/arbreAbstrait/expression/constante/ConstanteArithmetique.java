@@ -1,6 +1,6 @@
 package plicCompiler.arbreAbstrait.expression.constante;
 
-import plicCompiler.arbreAbstrait.expression.Expression;
+import plicCompiler.tDS.Symbole;
 
 public class ConstanteArithmetique extends Constante{
 	public ConstanteArithmetique(String c) {
@@ -10,6 +10,6 @@ public class ConstanteArithmetique extends Constante{
 
 	@Override
 	public void check() {
-		this.type = Expression.Type.ARITMETICAL;
+		this.type = Symbole.Type.ENTIER;
 	}
 }

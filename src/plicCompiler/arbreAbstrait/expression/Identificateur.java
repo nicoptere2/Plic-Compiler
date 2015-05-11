@@ -1,6 +1,6 @@
 package plicCompiler.arbreAbstrait.expression;
 
-import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
+import plicCompiler.exception.SemantiqueException;
 import plicCompiler.tDS.Symbole;
 import plicCompiler.tDS.TDS;
 
@@ -34,13 +34,13 @@ public class Identificateur extends Expression{
 	}
 	
 	@Override
-	public void check() throws TypeIncompatibleException {
+	public void check() throws Exception {
 		symbole = TDS.getInstance().identifier(this);
-		//System.out.println("identificateur : " + s);
-		if(symbole.getType() == Symbole.Type.ENTIER)
-			this.type = Expression.Type.ARITMETICAL;
+		
+		if(symbole != null)
+			this.setType(symbole.getType());
 		else
-			throw new TypeIncompatibleException();
+			throw new SemantiqueException("Identificateur non déclaré");
 	}
 	
 	@Override

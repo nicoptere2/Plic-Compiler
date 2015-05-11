@@ -1,7 +1,6 @@
 package plicCompiler.arbreAbstrait;
 
 
-import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
 import plicCompiler.arbreAbstrait.expression.Identificateur;
 import plicCompiler.arbreAbstrait.instruction.ListeInstruction;
 import plicCompiler.tDS.TDS;
@@ -18,7 +17,7 @@ public class Classe extends ArbreAbstrait {
 	}
 	
 	@Override
-	public void check() throws TypeIncompatibleException {
+	public void check() throws Exception {
 		TDS.getInstance().entrerBlock();
 		instructions.check();
 		TDS.getInstance().sortirBlock();

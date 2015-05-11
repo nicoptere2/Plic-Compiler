@@ -1,9 +1,11 @@
 package plicCompiler.arbreAbstrait.expression.operation.operationUnaire;
 
-import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
 import plicCompiler.arbreAbstrait.expression.Expression;
+import plicCompiler.tDS.Symbole;
 
 public class ExpressionNegative extends OperationUnaire{
+	
+	private String operation;
 
 	public ExpressionNegative(Expression e) {
 		super(e);
@@ -16,15 +18,17 @@ public class ExpressionNegative extends OperationUnaire{
 
 	@Override
 	protected String getInstr() {
-		return "#Oposé \nneg";
+		return operation;
 	}
 	
 	@Override
-	public void check() throws TypeIncompatibleException{
+	public void check() throws Exception{
 		this.exp.check();
-		if(this.exp.getType() != Expression.Type.ARITMETICAL)
-			throw new TypeIncompatibleException();
+		if(this.exp.getType() == Symbole.Type.ENTIER)
+			this.operation = "#Opposé \nneg";
+		else if(this.exp.getType() == Symbole.Type.BOOL)
+			this.operation = "#Negation \nnot";
 		
-		this.type = Expression.Type.ARITMETICAL;
+		this.type = this.exp.getType();
 	}
 }

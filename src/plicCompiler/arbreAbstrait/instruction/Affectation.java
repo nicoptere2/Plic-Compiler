@@ -1,8 +1,8 @@
 package plicCompiler.arbreAbstrait.instruction;
 
-import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
 import plicCompiler.arbreAbstrait.expression.Expression;
 import plicCompiler.arbreAbstrait.expression.Identificateur;
+import plicCompiler.exception.SemantiqueException;
 import plicCompiler.tDS.Symbole;
 import plicCompiler.tDS.TDS;
 
@@ -16,7 +16,6 @@ public class Affectation extends Instruction{
 		this.identificateur = identificateur;
 		this.expression = e;
 	}
-	
 
 	@Override
 	public String toCode() {
@@ -31,14 +30,12 @@ public class Affectation extends Instruction{
 	}
 
 	@Override
-	public void check() throws TypeIncompatibleException {
-		try{
+	public void check() throws Exception {
+
 		expression.check();
-		} catch(TypeIncompatibleException e) {
-			System.out.println("c'est ici...");
-		}
-		if(expression.getType() == Expression.Type.LOGICAL)
-			throw new TypeIncompatibleException("Affectation impossible du a une erreur de type");
+
+		if(expression.getType() == Symbole.Type.BOOL)
+			throw new SemantiqueException("Affectation impossible du a une erreur de type");
 		
 	}
 	

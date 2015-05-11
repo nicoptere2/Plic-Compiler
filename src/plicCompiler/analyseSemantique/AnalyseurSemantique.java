@@ -1,7 +1,7 @@
 package plicCompiler.analyseSemantique;
 
-import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
+import plicCompiler.exception.SemantiqueException;
 import plicCompiler.tDS.TDS;
 
 public class AnalyseurSemantique {
@@ -20,14 +20,10 @@ public class AnalyseurSemantique {
 		
 		try {
 			arbreAbstrait.check();
-		} catch (TypeIncompatibleException e){
-			System.out.println("Type Incompatible...");
-			System.out.println("Erreur : " + e.getMessage());
-			System.out.println(arbreAbstrait.toString());
-			System.exit(0);
-		}catch (Exception e) {
-			System.out.println("Erreur de type: " + e.getMessage());
-			System.out.println(arbreAbstrait.toString());
+		} catch (SemantiqueException e) {
+			System.out.println(e.getMessage());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			System.exit(0);
 		}
 	}

@@ -2,9 +2,9 @@ package plicCompiler.tDS;
 
 public class Symbole implements Cloneable{
 	
-	public static enum Type {ENTIER, CLASS;};
+	public static enum Type {ENTIER, BOOL, CLASS;};
 
-	public Type type;
+	private Type type;
 	
 	public static enum Statue {PRIVE, PUBLIC;};
 	

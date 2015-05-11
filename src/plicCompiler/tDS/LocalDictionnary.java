@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.Vector;
 
 import plicCompiler.arbreAbstrait.expression.Identificateur;
@@ -47,7 +45,7 @@ public class LocalDictionnary {
 	}
 	
 	public LocalDictionnary nextChild() {
-		return this.children.get(currentChild);
+		return this.children.get(currentChild++);
 	}
 
 	public LocalDictionnary getFather() {
@@ -83,14 +81,14 @@ public class LocalDictionnary {
 		this.taille = deplacement;
 	}
 	
-	public Symbole identifier(Identificateur e) {
+	public Symbole identifier(Identificateur i) {
 		
-		if(this.dictionnary.containsKey(e))
-			return this.dictionnary.get(e);
+		if(this.dictionnary.containsKey(i))
+			return this.dictionnary.get(i);
 		
 		
 		if(this.father != null)
-			return this.father.identifier(e);
+			return this.father.identifier(i);
 		else
 			return null;
 			

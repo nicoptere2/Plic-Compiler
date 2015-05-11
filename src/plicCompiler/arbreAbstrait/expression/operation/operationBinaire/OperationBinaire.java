@@ -1,6 +1,5 @@
 package plicCompiler.arbreAbstrait.expression.operation.operationBinaire;
 
-import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
 import plicCompiler.arbreAbstrait.expression.Expression;
 
 public abstract class OperationBinaire extends Expression{
@@ -25,7 +24,7 @@ public abstract class OperationBinaire extends Expression{
 	
 	protected abstract String getInstr();
 	
-	public abstract void check() throws TypeIncompatibleException;
+	public abstract void check() throws Exception;
 	
 	public String toCode() {
 		StringBuilder code = new StringBuilder();

@@ -1,7 +1,8 @@
 package plicCompiler.arbreAbstrait.instruction;
 
-import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
 import plicCompiler.arbreAbstrait.expression.Identificateur;
+import plicCompiler.exception.SemantiqueException;
+import plicCompiler.tDS.Symbole;
 import plicCompiler.tDS.TDS;
 
 public class Lire extends Instruction {
@@ -27,8 +28,12 @@ public class Lire extends Instruction {
 	}
 
 	@Override
-	public void check() throws TypeIncompatibleException {
+	public void check() throws Exception {
 		this.variable.check();
+		
+		Symbole sym = TDS.getInstance().identifier(this.variable);
+		if(sym == null)
+			throw new SemantiqueException("Variable non déclaré");
 	}
 	
 	@Override

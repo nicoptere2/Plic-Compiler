@@ -3,19 +3,14 @@
  */
 package plicCompiler;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.StringReader;
 import java.io.IOException;
 
 import plicCompiler.analyseLexSynt.AnalyseurLexical;
 import plicCompiler.analyseLexSynt.AnalyseurSyntaxique;
 import plicCompiler.analyseSemantique.AnalyseurSemantique;
-import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
 import plicCompiler.arbreAbstrait.expression.constante.ListChaine;
-import plicCompiler.tDS.TDS;
 
 /**
  * @author nico
