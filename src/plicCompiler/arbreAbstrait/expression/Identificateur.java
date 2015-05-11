@@ -14,7 +14,8 @@ public class Identificateur extends Expression{
 		this.identificateur = idf;
 	}
 	
-	public String codeTake() {
+	@Override
+	public String toCode() {
 		StringBuilder s = new StringBuilder();
 		
 		s.append("# chargement de la variable '" + identificateur + "' dans $v0\n");

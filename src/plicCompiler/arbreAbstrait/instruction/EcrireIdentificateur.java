@@ -18,7 +18,7 @@ public class EcrireIdentificateur extends Ecrire{
 		StringBuilder s = new StringBuilder();
 		
 		s.append("#Ecriture de la valeur de la variabel '" + identificateur + "' \n");
-		s.append(identificateur.codeTake());
+		s.append(identificateur.toCode());
 		s.append("move $a0, $v0\n");
 		s.append("li $v0 , 1\n");
 		s.append("syscall\n");
