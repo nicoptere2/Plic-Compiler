@@ -32,13 +32,12 @@ public class Affectation extends Instruction{
 
 	@Override
 	public void check() throws SemanticsException {
-		try{
-		expression.check();
-		} catch(SemanticsException e) {
-			System.out.println("c'est ici...");
-		}
-		if(expression.getType() == Expression.Type.LOGICAL)
-			throw new SemanticsException("Affectation impossible du a une erreur de type");
+
+		this.expression.check();
+		this.identificateur.check();
+
+		if(expression.getType() != this.identificateur.getType())
+			throw new SemanticsException("les types ne concordent pas");
 		
 	}
 	

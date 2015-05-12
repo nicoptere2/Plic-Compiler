@@ -20,7 +20,7 @@ public abstract class OperationArithmetique extends OperationBinaire{
 	@Override
 	protected abstract String getInstr();
 	
-	protected abstract void setOperateur();
+	protected abstract void setOperateur() throws SemanticsException;
 	
 	@Override
 	public void check() throws SemanticsException {

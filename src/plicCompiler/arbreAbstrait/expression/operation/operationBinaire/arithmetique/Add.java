@@ -2,6 +2,8 @@ package plicCompiler.arbreAbstrait.expression.operation.operationBinaire.arithme
 
 import plicCompiler.arbreAbstrait.expression.Expression;
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.OperationBinaire;
+import plicCompiler.exception.SemanticsException;
+import plicCompiler.tDS.Symbole;
 
 public class Add extends OperationArithmetique{
 	public Add(Expression e1, Expression e2) {
@@ -14,10 +16,12 @@ public class Add extends OperationArithmetique{
 	}
 
 	@Override
-	protected void setOperateur() {
-		if(this.type == Expression.Type.ARITMETICAL)
+	protected void setOperateur() throws SemanticsException {
+		if(this.type == Symbole.Type.ENTIER)
 			this.operateur = "add";
-		else
+		else if(this.type == Symbole.Type.BOOL)
 			this.operateur = "or";
+		else
+			throw new SemanticsException("Type inattendu");
 	}
 }

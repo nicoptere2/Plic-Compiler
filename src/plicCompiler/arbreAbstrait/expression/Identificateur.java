@@ -36,11 +36,7 @@ public class Identificateur extends Expression{
 	@Override
 	public void check() throws SemanticsException {
 		symbole = TDS.getInstance().identifier(this);
-		//System.out.println("identificateur : " + s);
-		if(symbole.getType() == Symbole.Type.ENTIER)
-			this.type = Expression.Type.ARITMETICAL;
-		else
-			throw new SemanticsException();
+		this.type = symbole.getType();
 	}
 	
 	@Override

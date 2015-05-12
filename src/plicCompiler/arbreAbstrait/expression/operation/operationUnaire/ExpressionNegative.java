@@ -2,6 +2,7 @@ package plicCompiler.arbreAbstrait.expression.operation.operationUnaire;
 
 import plicCompiler.arbreAbstrait.expression.Expression;
 import plicCompiler.exception.SemanticsException;
+import plicCompiler.tDS.Symbole;
 
 public class ExpressionNegative extends OperationUnaire{
 
@@ -16,15 +17,21 @@ public class ExpressionNegative extends OperationUnaire{
 
 	@Override
 	protected String getInstr() {
-		return "#Oposé \nneg";
+		if(this.type == Symbole.Type.ENTIER)
+			return "#Oposé \nneg";
+		else
+			return "#Oposé \nnot";
+		
 	}
 	
 	@Override
 	public void check() throws SemanticsException{
 		this.exp.check();
-		if(this.exp.getType() != Expression.Type.ARITMETICAL)
-			throw new SemanticsException();
-		
-		this.type = Expression.Type.ARITMETICAL;
+		if(this.exp.getType() == Symbole.Type.ENTIER)
+			this.type = Symbole.Type.ENTIER;
+		else if(this.exp.getType() == Symbole.Type.BOOL)
+			this.type = Symbole.Type.ENTIER;
+		else
+			throw new SemanticsException("Type de l'opérateur inattendu");
 	}
 }

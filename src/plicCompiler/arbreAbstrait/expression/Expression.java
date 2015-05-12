@@ -2,6 +2,7 @@ package plicCompiler.arbreAbstrait.expression;
 
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
 import plicCompiler.exception.SemanticsException;
+import plicCompiler.tDS.Symbole.Type;
 
 
 public class Expression extends ArbreAbstrait {
@@ -9,8 +10,6 @@ public class Expression extends ArbreAbstrait {
 	protected Expression exp;
 	
 	protected Type type;
-	
-	public enum Type {LOGICAL, ARITMETICAL;};
 	
 	public Expression(){
 	}
