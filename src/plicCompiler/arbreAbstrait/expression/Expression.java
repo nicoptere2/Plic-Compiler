@@ -1,7 +1,7 @@
 package plicCompiler.arbreAbstrait.expression;
 
-import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
+import plicCompiler.exception.SemanticsException;
 
 
 public class Expression extends ArbreAbstrait {
@@ -44,7 +44,7 @@ public class Expression extends ArbreAbstrait {
 	}
 	
 	@Override
-	public void check() throws TypeIncompatibleException{
+	public void check() throws SemanticsException{
 		exp.check();
 		this.type = exp.getType();
 	}

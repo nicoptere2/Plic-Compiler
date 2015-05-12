@@ -1,6 +1,6 @@
 package plicCompiler.analyseSemantique;
 
-import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
+import plicCompiler.exception.SemanticsException;
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
 
 public class AnalyseurSemantique {

@@ -30,7 +30,7 @@ public class PlicCompiler {
 	}
 
 	private void compiler(String code) {
-		System.out.println("ANALYSEUR LEXIQUAL & SYNTHAXIQUAL");
+		//System.out.println("ANALYSEUR LEXIQUAL & SYNTHAXIQUAL");
 		AnalyseurSyntaxique analyser = new AnalyseurSyntaxique(new AnalyseurLexical(new StringReader(code)));
 		ArbreAbstrait arbreAbstrait = null;
 		try {
@@ -43,15 +43,13 @@ public class PlicCompiler {
 			System.exit(1);
 		}
 		
-		System.out.println("ANALYSE SEMANTIQUE");
+		//System.out.println("ANALYSE SEMANTIQUE");
 		
 		AnalyseurSemantique analyserSemantique = new AnalyseurSemantique(arbreAbstrait);
 		
-		//System.out.println("Analyse Semantique :");
-		
 		analyserSemantique.check();
 	
-		System.out.println("TO CODE");
+		//System.out.println("TO CODE");
 		
 		StringBuilder s = new StringBuilder();
 		s.append(".data\n");
@@ -70,15 +68,14 @@ public class PlicCompiler {
 			System.exit(1);
 		}
 		
-		System.out.println("Compilation Effectué");
-		System.out.println("Ecriture dans le fichier : " + file.getOutFilename());
+		System.out.println("COMPILATION OK");
 	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println("Bienvenue a notre programmeur Plic!");
+		//System.out.println("Bienvenue a notre programmeur Plic!");
 		if(args.length != 2){
 			System.out.println("Usage : plicCompiler fichierSource fichier destination");
 			System.exit(1);

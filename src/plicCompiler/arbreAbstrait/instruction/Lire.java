@@ -1,7 +1,7 @@
 package plicCompiler.arbreAbstrait.instruction;
 
-import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
 import plicCompiler.arbreAbstrait.expression.Identificateur;
+import plicCompiler.exception.SemanticsException;
 import plicCompiler.tDS.TDS;
 
 public class Lire extends Instruction {
@@ -27,7 +27,7 @@ public class Lire extends Instruction {
 	}
 
 	@Override
-	public void check() throws TypeIncompatibleException {
+	public void check() throws SemanticsException {
 		this.variable.check();
 	}
 	

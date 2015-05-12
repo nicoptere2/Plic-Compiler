@@ -1,4 +1,4 @@
-package plicCompiler.analyseSemantique.exception;
+package plicCompiler.exception;
 
 @SuppressWarnings("serial")
 public class TypeIncompatibleException extends Exception {

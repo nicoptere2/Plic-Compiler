@@ -2,8 +2,8 @@ package plicCompiler.arbreAbstrait.instruction;
 
 import java.util.ArrayList;
 
-import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
+import plicCompiler.exception.SemanticsException;
 
 public class ListeInstruction {
 	private ArrayList<Instruction> instructions;
@@ -33,7 +33,7 @@ public class ListeInstruction {
 		return s.toString();
 	}
 
-	public void check() throws TypeIncompatibleException {
+	public void check() throws SemanticsException {
 		for(Instruction i: instructions)
 			i.check();
 	}

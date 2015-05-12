@@ -1,8 +1,8 @@
 package plicCompiler.arbreAbstrait.expression.operation.operationBinaire.arithmetique;
 
-import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
 import plicCompiler.arbreAbstrait.expression.Expression;
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.OperationBinaire;
+import plicCompiler.exception.SemanticsException;
 
 public class Div extends OperationArithmetique {
 
@@ -16,10 +16,10 @@ public class Div extends OperationArithmetique {
 	}
 	
 	@Override
-	public void check() throws TypeIncompatibleException {
+	public void check() throws SemanticsException {
 		super.check();
 		if((this.operandeGauche.getType() != Expression.Type.ARITMETICAL) || (this.operandeDroite.getType() != Expression.Type.ARITMETICAL))
-			throw new TypeIncompatibleException();
+			throw new SemanticsException();
 	}
 
 	@Override

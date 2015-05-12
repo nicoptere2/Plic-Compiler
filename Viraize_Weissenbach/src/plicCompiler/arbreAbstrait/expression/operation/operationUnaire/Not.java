@@ -1,6 +1,6 @@
 package plicCompiler.arbreAbstrait.expression.operation.operationUnaire;
 
-import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
+import plicCompiler.exception.SemanticsException;
 import plicCompiler.arbreAbstrait.expression.Expression;
 
 public class Not extends OperationUnaire {

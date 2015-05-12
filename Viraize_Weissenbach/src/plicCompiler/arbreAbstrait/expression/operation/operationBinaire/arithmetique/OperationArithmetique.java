@@ -1,6 +1,6 @@
 package plicCompiler.arbreAbstrait.expression.operation.operationBinaire.arithmetique;
 
-import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
+import plicCompiler.exception.SemanticsException;
 import plicCompiler.arbreAbstrait.expression.Expression;
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.OperationBinaire;
 

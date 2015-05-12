@@ -1,6 +1,6 @@
 package plicCompiler.arbreAbstrait;
 
-import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
+import plicCompiler.exception.SemanticsException;
 
 public class ArbreAbstrait {
 	

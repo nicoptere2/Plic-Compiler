@@ -1,7 +1,7 @@
 package plicCompiler.arbreAbstrait.expression.operation.operationUnaire;
 
-import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
 import plicCompiler.arbreAbstrait.expression.Expression;
+import plicCompiler.exception.SemanticsException;
 
 public class ExpressionNegative extends OperationUnaire{
 
@@ -20,10 +20,10 @@ public class ExpressionNegative extends OperationUnaire{
 	}
 	
 	@Override
-	public void check() throws TypeIncompatibleException{
+	public void check() throws SemanticsException{
 		this.exp.check();
 		if(this.exp.getType() != Expression.Type.ARITMETICAL)
-			throw new TypeIncompatibleException();
+			throw new SemanticsException();
 		
 		this.type = Expression.Type.ARITMETICAL;
 	}
