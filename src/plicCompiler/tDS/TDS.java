@@ -28,16 +28,12 @@ public class TDS {
 	}
 	
 	public void entrerBlock() {
-		System.out.println("boolean : " + analyseSyntaxique);
 		if(this.analyseSyntaxique){
 			idBlock++;
 			currentBlock = currentBlock.newChild(idBlock);
 		}
-		else {
-			System.out.println("salut" + currentBlock);
+		else 
 			currentBlock = currentBlock.nextChild();
-			System.out.println(currentBlock);
-		}
 	}
 	
 	public void sortirBlock() {

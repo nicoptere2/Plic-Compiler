@@ -3,19 +3,14 @@
  */
 package plicCompiler;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.StringReader;
 import java.io.IOException;
 
 import plicCompiler.analyseLexSynt.AnalyseurLexical;
 import plicCompiler.analyseLexSynt.AnalyseurSyntaxique;
 import plicCompiler.analyseSemantique.AnalyseurSemantique;
-import plicCompiler.analyseSemantique.exception.TypeIncompatibleException;
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
 import plicCompiler.arbreAbstrait.expression.constante.ListChaine;
-import plicCompiler.tDS.TDS;
 
 /**
  * @author nico
@@ -35,6 +30,7 @@ public class PlicCompiler {
 	}
 
 	private void compiler(String code) {
+		System.out.println("ANALYSEUR LEXIQUAL & SYNTHAXIQUAL");
 		AnalyseurSyntaxique analyser = new AnalyseurSyntaxique(new AnalyseurLexical(new StringReader(code)));
 		ArbreAbstrait arbreAbstrait = null;
 		try {
@@ -47,17 +43,15 @@ public class PlicCompiler {
 			System.exit(1);
 		}
 		
-		System.out.println("Arbre = \n" + arbreAbstrait.toString());
+		System.out.println("ANALYSE SEMANTIQUE");
 		
 		AnalyseurSemantique analyserSemantique = new AnalyseurSemantique(arbreAbstrait);
 		
-		System.out.println("Analyse Semantique :");
+		//System.out.println("Analyse Semantique :");
 		
 		analyserSemantique.check();
-		
-		//System.out.println("\n\n" + arbreAbstrait.toString()+ "\n\n");
-		
-		//System.out.println(TDS.getInstance().toString() + "\n\n");
+	
+		System.out.println("TO CODE");
 		
 		StringBuilder s = new StringBuilder();
 		s.append(".data\n");
