@@ -17,19 +17,13 @@ public class AnalyseurSemantique {
 		TDS.getInstance().setAnalyseSyntaxique(false);
 		TDS.getInstance().check();
 		
-		
 		try {
 			arbreAbstrait.check();
 		} catch (SemanticsException e){
-			System.out.println("Type Incompatible...");
-			System.out.println("Erreur : " + e.getMessage());
-			System.out.println(arbreAbstrait.toString());
-			System.exit(0);
-		}catch (Exception e) {
-			System.out.println("Erreur de type: " + e.getMessage());
-			System.out.println(arbreAbstrait.toString());
-			System.exit(0);
+			System.out.println(e.getMessage());
+		} catch (Exception e) {
+			System.out.println("unexpected error: " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
-
 }

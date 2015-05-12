@@ -6,7 +6,12 @@ then
 	outFile=$(echo $2 | sed -r 's/.plic/.asm/g')
 	echo $outFile
 	java -jar $1 $2 $outFile
-	java -jar $MARSPATH $outFile
+	if [ -n $MARSPATH ]
+	then
+		java -jar $MARSPATH $outFile
+	else
+		echo "MARSPATH variable d'environement non déclaré"
+	fi
 
 else
 	echo "usage : ./plic fichier.plic classe.Main"
