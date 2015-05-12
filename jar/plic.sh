@@ -2,11 +2,9 @@
 
 if [ -n $1 ] && [ -n $2 ]
 then
-	echo $2
 	outFile=$(echo $2 | sed -r 's/.plic/.asm/g')
-	echo $outFile
 	java -jar $1 $2 $outFile
-	if [ -n $MARSPATH ]
+	if [ ' ' != $MARSPATH ]
 	then
 		java -jar $MARSPATH $outFile
 	else
