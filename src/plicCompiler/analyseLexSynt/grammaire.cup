@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
 import plicCompiler.arbreAbstrait.Classe;
-import plicCompiler.arbreAbstrait.instruction.Commentaire;
 import plicCompiler.arbreAbstrait.instruction.Declaration;
 import plicCompiler.arbreAbstrait.instruction.EcrireConstante;
 import plicCompiler.arbreAbstrait.instruction.EcrireIdentificateur;

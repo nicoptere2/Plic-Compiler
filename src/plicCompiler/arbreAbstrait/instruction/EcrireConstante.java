@@ -27,8 +27,7 @@ public class EcrireConstante extends Ecrire {
 
 	@Override
 	public void check() {
-		// TODO Auto-generated method stub
-		
+		ListChaine.getInstance().check();
 	}
 	
 	@Override

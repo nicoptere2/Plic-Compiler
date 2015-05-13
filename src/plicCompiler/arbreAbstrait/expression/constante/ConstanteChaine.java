@@ -9,7 +9,7 @@ public class ConstanteChaine extends Constante{
 
 	@Override
 	public void check() {
-		// TODO Auto-generated method stub
+		this.constante = this.constante.replace("\"\"", "\\\"");
 	}
 	
 	@Override

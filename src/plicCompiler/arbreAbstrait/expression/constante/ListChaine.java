@@ -40,4 +40,9 @@ public class ListChaine {
 		
 		return s.toString();
 	}
+
+	public void check() {
+		for(ConstanteChaine c: listChaine)
+			c.check();
+	}
 }

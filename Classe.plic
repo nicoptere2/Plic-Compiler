@@ -1,25 +1,8 @@
-classe  uio
-b = 4 ;
-publique entier a, b;
-a = 0 ;
-privee entier d2, de ;
-privee entier unNomDidentificateurTresLongPourEmbeterLesCompilateursDuLangagePlic ;
-ecrire "programme de test\n" ;
-ecrire "\n\n" ;
-ecrire "a" ; ecrire "\n" ;
-A = 0012 ; A = + 0000012 + A ;
-
-//un commentaire de test
-
-c1 = (a+10) * 12 * (-1) ; f = 5 ;
-d2 = (a*3 - 3 + c1*f) ;
-unNomDidentificateurTresLongPourEmbeterLesCompilateursDuLangagePlic = c1 ;
-ecrire unNomDidentificateurTresLongPourEmbeterLesCompilateursDuLangagePlic ; ecrire"\n" ;
-ecrire "ecriture d'un mot entre guillemets ""bonjour""" ;
-ecrire "\n" ;
-lire f ; lire Essai ;
-publique entier f ;
-Essai = 1 ;
-publique entier Essai, essai ;
-essai = 2*Essai ;
+classe test
+ecrire "Bonjour les ""loulou""\n";
+ecrire "Quelle age as-tu?";
+lire age;
+publique entier age;
+ecrire "tu as donc ";
+ecrire age;
 fin

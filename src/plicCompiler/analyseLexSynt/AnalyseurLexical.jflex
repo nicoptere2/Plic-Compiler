@@ -104,7 +104,8 @@ lire						{ return symbol(CodesLexicaux.LIREIDF); }
 
 classe						{ return symbol(CodesLexicaux.CLASSEIDF); }
 
-\".*\"						{ return symbol(CodesLexicaux.CHAINEGUILL, yytext()); } 
+
+\"([^\"]|\"\")*\"						{ return symbol(CodesLexicaux.CHAINEGUILL, yytext()); }
 
 {idf}						{ return symbol(CodesLexicaux.IDF, yytext()); }
 
