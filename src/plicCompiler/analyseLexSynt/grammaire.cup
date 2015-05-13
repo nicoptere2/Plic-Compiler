@@ -174,7 +174,7 @@ SYSTEME		::=		CLASSE:c
 CLASSE		::=		CLASSECLASSE IDF:idf LISTDECL:lst END
 					{:
 						TDS.getInstance().sortirBlock();
-						TDS.getInstance().ajouter(new Identificateur(idf), new Symbole(Symbole.Type.CLASS));
+						TDS.getInstance().ajouter(new Identificateur(idf), new Symbole(Symbole.Type.CLASS), idfleft+1);
 						RESULT = new Classe(new Identificateur(idf), lst);
 					:}
 			;
@@ -211,7 +211,7 @@ DECLARATION	::=		DECL_CHAMP:d POINTVIRGULE
 DECL_CHAMP	::=		STATUT:s TYPE:t LISTIDF:idfs 
 					{:
 						//System.out.println("fhdqqslfhdskqhfjdk");
-						TDS.getInstance().ajouter(idfs, new Symbole(s, t));
+						TDS.getInstance().ajouter(idfs, new Symbole(s, t), tleft+1);
 						RESULT = new Declaration(idfs, idfsleft+1);
 					:}
 			;

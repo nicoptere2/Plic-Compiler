@@ -1,0 +1,360 @@
+.data
+str0:	.asciiz "programme de test\n"
+str1:	.asciiz "\n\n"
+str2:	.asciiz "a"
+str3:	.asciiz "\n"
+str4:	.asciiz "a"
+str5:	.asciiz "b"
+str6:	.asciiz "\n"
+str7:	.asciiz "ecriture d'un mot entre guillemets"" bonjour"
+str8:	.asciiz "\n"
+.text
+main:
+
+
+# Entre dans un block
+# initialisation @retour
+sw $s7, ($sp)
+# initialiser s7 avec sp (initialisation de la base des variables)
+move $s7,$sp
+# r�servation de l'espace pour 1 variables
+addi $sp, $sp, -16
+# numero de region
+li $v0, 0
+sw $v0, -8($s7)
+
+
+#on entre dans le block :uio
+
+
+# Entre dans un block
+# initialisation @retour
+sw $s7, ($sp)
+# initialiser s7 avec sp (initialisation de la base des variables)
+move $s7,$sp
+# r�servation de l'espace pour 10 variables
+addi $sp, $sp, -52
+# numero de region
+li $v0, 1
+sw $v0, -8($s7)
+
+
+# Affectation de la variable 'b' !
+#Chargement de 4 dans $v0
+li $v0, 4
+sw $v0, -36($s7)
+# Declaration de variables 
+# Affectation de la variable 'a' !
+#Chargement de 0 dans $v0
+li $v0, 0
+sw $v0, -40($s7)
+# Declaration de variables 
+# Declaration de variables 
+# Ecriture de la chaine de caractere'str0' 
+la $a0, str0
+li $v0 , 4
+syscall
+# Ecriture de la chaine de caractere'str1' 
+la $a0, str1
+li $v0 , 4
+syscall
+# Ecriture de la chaine de caractere'str2' 
+la $a0, str2
+li $v0 , 4
+syscall
+# Ecriture de la chaine de caractere'str3' 
+la $a0, str3
+li $v0 , 4
+syscall
+# Affectation de la variable 'A' !
+#Chargement de 0012 dans $v0
+li $v0, 0012
+sw $v0, -16($s7)
+# Affectation de la variable 'A' !
+
+
+#Operation arithmetique!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#Chargement de 0000012 dans $v0
+li $v0, 0000012
+#Chargement Operande gauche dans la pile
+sw $v0, ($sp)
+addi $sp, $sp, -4
+
+# chargement de la variable 'A' dans $v0
+lw $v0, -16($s7) 
+#Chargement Operande droite dans la pile
+sw $v0, ($sp)
+addi $sp, $sp, -4
+#Chargement Operande droite dans $v0
+addi $sp, $sp, 4
+lw $v0, ($sp)
+#Chargement Operande gauche dans $t8
+addi $sp, $sp, 4
+lw $t8, ($sp)
+#Calcule de OperandeGauche @ OperandeDroite (@ => operateur)
+#Addition 
+add $v0, $t8, $v0
+
+
+sw $v0, -16($s7)
+# Ecriture de la chaine de caractere'str4' 
+la $a0, str4
+li $v0 , 4
+syscall
+# Ecriture de la chaine de caractere'str5' 
+la $a0, str5
+li $v0 , 4
+syscall
+# Affectation de la variable 'c1' !
+
+
+#Operation arithmetique!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+#Operation arithmetique!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+#Operation arithmetique!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# chargement de la variable 'a' dans $v0
+lw $v0, -40($s7) 
+#Chargement Operande gauche dans la pile
+sw $v0, ($sp)
+addi $sp, $sp, -4
+
+#Chargement de 10 dans $v0
+li $v0, 10
+#Chargement Operande droite dans la pile
+sw $v0, ($sp)
+addi $sp, $sp, -4
+#Chargement Operande droite dans $v0
+addi $sp, $sp, 4
+lw $v0, ($sp)
+#Chargement Operande gauche dans $t8
+addi $sp, $sp, 4
+lw $t8, ($sp)
+#Calcule de OperandeGauche @ OperandeDroite (@ => operateur)
+#Addition 
+add $v0, $t8, $v0
+
+
+#Chargement Operande gauche dans la pile
+sw $v0, ($sp)
+addi $sp, $sp, -4
+
+#Chargement de 12 dans $v0
+li $v0, 12
+#Chargement Operande droite dans la pile
+sw $v0, ($sp)
+addi $sp, $sp, -4
+#Chargement Operande droite dans $v0
+addi $sp, $sp, 4
+lw $v0, ($sp)
+#Chargement Operande gauche dans $t8
+addi $sp, $sp, 4
+lw $t8, ($sp)
+#Calcule de OperandeGauche @ OperandeDroite (@ => operateur)
+#Multiplication 
+mul $v0, $t8, $v0
+
+
+#Chargement Operande gauche dans la pile
+sw $v0, ($sp)
+addi $sp, $sp, -4
+
+#Chargement de 1 dans $v0
+li $v0, 1
+#Chargement Operande dans la pile
+sw $v0, ($sp)
+addi $sp, $sp, -4
+
+#Chargement Operande dans $v0
+addi $sp, $sp, 4
+lw $v0, ($sp)
+#Calcule de OperandeGauche @ OperandeDroite (@ => operateur)
+#Oposé 
+neg $v0, $v0
+#Chargement Operande droite dans la pile
+sw $v0, ($sp)
+addi $sp, $sp, -4
+#Chargement Operande droite dans $v0
+addi $sp, $sp, 4
+lw $v0, ($sp)
+#Chargement Operande gauche dans $t8
+addi $sp, $sp, 4
+lw $t8, ($sp)
+#Calcule de OperandeGauche @ OperandeDroite (@ => operateur)
+#Multiplication 
+mul $v0, $t8, $v0
+
+
+sw $v0, -24($s7)
+# Affectation de la variable 'f' !
+#Chargement de 5 dans $v0
+li $v0, 5
+sw $v0, -28($s7)
+# Affectation de la variable 'd2' !
+
+
+#Operation arithmetique!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+#Operation arithmetique!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+#Operation arithmetique!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# chargement de la variable 'a' dans $v0
+lw $v0, -40($s7) 
+#Chargement Operande gauche dans la pile
+sw $v0, ($sp)
+addi $sp, $sp, -4
+
+#Chargement de 3 dans $v0
+li $v0, 3
+#Chargement Operande droite dans la pile
+sw $v0, ($sp)
+addi $sp, $sp, -4
+#Chargement Operande droite dans $v0
+addi $sp, $sp, 4
+lw $v0, ($sp)
+#Chargement Operande gauche dans $t8
+addi $sp, $sp, 4
+lw $t8, ($sp)
+#Calcule de OperandeGauche @ OperandeDroite (@ => operateur)
+#Multiplication 
+mul $v0, $t8, $v0
+
+
+#Chargement Operande gauche dans la pile
+sw $v0, ($sp)
+addi $sp, $sp, -4
+
+#Chargement de 3 dans $v0
+li $v0, 3
+#Chargement Operande droite dans la pile
+sw $v0, ($sp)
+addi $sp, $sp, -4
+#Chargement Operande droite dans $v0
+addi $sp, $sp, 4
+lw $v0, ($sp)
+#Chargement Operande gauche dans $t8
+addi $sp, $sp, 4
+lw $t8, ($sp)
+#Calcule de OperandeGauche @ OperandeDroite (@ => operateur)
+#Soustraction 
+sub $v0, $t8, $v0
+
+
+#Chargement Operande gauche dans la pile
+sw $v0, ($sp)
+addi $sp, $sp, -4
+
+
+
+#Operation arithmetique!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# chargement de la variable 'c1' dans $v0
+lw $v0, -24($s7) 
+#Chargement Operande gauche dans la pile
+sw $v0, ($sp)
+addi $sp, $sp, -4
+
+# chargement de la variable 'f' dans $v0
+lw $v0, -28($s7) 
+#Chargement Operande droite dans la pile
+sw $v0, ($sp)
+addi $sp, $sp, -4
+#Chargement Operande droite dans $v0
+addi $sp, $sp, 4
+lw $v0, ($sp)
+#Chargement Operande gauche dans $t8
+addi $sp, $sp, 4
+lw $t8, ($sp)
+#Calcule de OperandeGauche @ OperandeDroite (@ => operateur)
+#Multiplication 
+mul $v0, $t8, $v0
+
+
+#Chargement Operande droite dans la pile
+sw $v0, ($sp)
+addi $sp, $sp, -4
+#Chargement Operande droite dans $v0
+addi $sp, $sp, 4
+lw $v0, ($sp)
+#Chargement Operande gauche dans $t8
+addi $sp, $sp, 4
+lw $t8, ($sp)
+#Calcule de OperandeGauche @ OperandeDroite (@ => operateur)
+#Addition 
+add $v0, $t8, $v0
+
+
+sw $v0, -12($s7)
+# Affectation de la variable 'unNomDidentificateurTresLongPourEmbeterLesCompilateursDuLangagePlic' !
+# chargement de la variable 'c1' dans $v0
+lw $v0, -24($s7) 
+sw $v0, -20($s7)
+#Ecriture de la valeur de la variabel 'unNomDidentificateurTresLongPourEmbeterLesCompilateursDuLangagePlic' 
+# chargement de la variable 'unNomDidentificateurTresLongPourEmbeterLesCompilateursDuLangagePlic' dans $v0
+lw $v0, -20($s7) 
+move $a0, $v0
+li $v0 , 1
+syscall
+# Ecriture de la chaine de caractere'str6' 
+la $a0, str6
+li $v0 , 4
+syscall
+# Ecriture de la chaine de caractere'str7' 
+la $a0, str7
+li $v0 , 4
+syscall
+# Ecriture de la chaine de caractere'str8' 
+la $a0, str8
+li $v0 , 4
+syscall
+#Lecture de 'f' 
+li $v0, 5
+syscall
+# affectation dans la variable 'f' de $v0
+sw $v0, -28($s7) 
+#Lecture de 'Essai' 
+li $v0, 5
+syscall
+# affectation dans la variable 'Essai' de $v0
+sw $v0, -32($s7) 
+# Declaration de variables 
+# Affectation de la variable 'Essai' !
+#Chargement de 1 dans $v0
+li $v0, 1
+sw $v0, -32($s7)
+# Declaration de variables 
+# Affectation de la variable 'essai' !
+
+
+#Operation arithmetique!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#Chargement de 2 dans $v0
+li $v0, 2
+#Chargement Operande gauche dans la pile
+sw $v0, ($sp)
+addi $sp, $sp, -4
+
+# chargement de la variable 'Essai' dans $v0
+lw $v0, -32($s7) 
+#Chargement Operande droite dans la pile
+sw $v0, ($sp)
+addi $sp, $sp, -4
+#Chargement Operande droite dans $v0
+addi $sp, $sp, 4
+lw $v0, ($sp)
+#Chargement Operande gauche dans $t8
+addi $sp, $sp, 4
+lw $t8, ($sp)
+#Calcule de OperandeGauche @ OperandeDroite (@ => operateur)
+#Multiplication 
+mul $v0, $t8, $v0
+
+
+sw $v0, -48($s7)
+# Sortie d'un block 
+# deplacement sommet pile
+move $sp, $s7
+# deplacement de la base du block
+lw $s7, ($sp)

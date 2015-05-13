@@ -9,6 +9,7 @@ import java.util.Queue;
 import java.util.Vector;
 
 import plicCompiler.arbreAbstrait.expression.Identificateur;
+import plicCompiler.exception.ListErreurSem;
 
 public class LocalDictionnary {
 	
@@ -55,7 +56,9 @@ public class LocalDictionnary {
 		return this.father;
 	}
 
-	public void add(Identificateur e, Symbole s) {
+	public void add(Identificateur e, Symbole s, int ligne) {
+		if(this.dictionnary.containsKey(e))
+			ListErreurSem.getInstance().add("Identificateur '" + e.toString() + "' deja instancié", String.valueOf(ligne));
 		dictionnary.put(e, s);
 	}
 	

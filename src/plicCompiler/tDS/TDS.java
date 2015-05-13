@@ -40,13 +40,13 @@ public class TDS {
 		currentBlock = currentBlock.getFather();
 	}
 	
-	public void ajouter(Identificateur e, Symbole s) {
-		currentBlock.add(e,s);
+	public void ajouter(Identificateur e, Symbole s, int ligne) {
+		currentBlock.add(e,s, ligne);
 	}
 	
-	public void ajouter(ArrayList<Identificateur> listE, Symbole s) {
+	public void ajouter(ArrayList<Identificateur> listE, Symbole s, int ligne) {
 		for(Identificateur e: listE)
-			currentBlock.add(e, s.clone());
+			currentBlock.add(e, s.clone(), ligne);
 	}
 	
 	public void setAnalyseSyntaxique(boolean analyseSyntaxique) {
