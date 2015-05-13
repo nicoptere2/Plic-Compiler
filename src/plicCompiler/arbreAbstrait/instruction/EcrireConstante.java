@@ -7,7 +7,8 @@ public class EcrireConstante extends Ecrire {
 	
 	private String etiquette;
 	
-	public EcrireConstante(ConstanteChaine chaine) {
+	public EcrireConstante(ConstanteChaine chaine, int ligne) {
+		super(ligne);
 		etiquette = ListChaine.getInstance().push(chaine);
 	}
 	

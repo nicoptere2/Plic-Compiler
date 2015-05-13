@@ -11,7 +11,7 @@ public class SemanticsException extends Exception {
 		super("ERREUR SEMANTIQUE" + message);
 	}
 	
-	public SemanticsException(String message, int noLigne){
-		super("ERREUR SEMANTIQUE" + noLigne + message);
+	public SemanticsException(String message, String noLigne){
+		super(message);
 	}
 }

@@ -1,6 +1,7 @@
 package plicCompiler.analyseSemantique;
 
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
+import plicCompiler.exception.ListErreurSem;
 import plicCompiler.exception.SemanticsException;
 import plicCompiler.tDS.TDS;
 
@@ -19,11 +20,15 @@ public class AnalyseurSemantique {
 		
 		try {
 			arbreAbstrait.check();
-		} catch (SemanticsException e){
-			System.out.println(e.getMessage());
-		} catch (Exception e) {
-			System.out.println("unexpected error: " + e.getMessage());
-			e.printStackTrace();
+		} catch (SemanticsException e) {
+			System.out.println("Erreur inattendu");
 		}
+		
+		if(!ListErreurSem.getInstance().isEmpty()) {
+			System.out.println(ListErreurSem.getInstance().toString());
+			System.exit(1);
+		}
+			
+		
 	}
 }

@@ -10,7 +10,7 @@ public class SyntaxicException extends Exception{
 		super("ERREUR SYNTAXIQUE" + message);
 	}
 	
-	public SyntaxicException(String message, int noLigne){
-		super("ERREUR SYNTAXIQUE" + noLigne + message);
+	public SyntaxicException(String message, String noLigne){
+		super("ERREUR SYNTAXIQUE : " + noLigne + " : " + message);
 	}
 }

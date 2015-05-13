@@ -1,13 +1,16 @@
-classe essaie 
+classe  uio
 b = 4 ;
 publique entier a, b;
 a = 0 ;
-privee entier c1, d2, de ;
-privee entier A, unNomDidentificateurTresLongPourEmbeterLesCompilateursDuLangagePlic ;
+privee entier d2, de ;
+privee entier unNomDidentificateurTresLongPourEmbeterLesCompilateursDuLangagePlic ;
 ecrire "programme de test\n" ;
 ecrire "\n\n" ;
-ecrire a ; ecrire "\n" ;
+ecrire "a" ; ecrire "\n" ;
 A = 0012 ; A = + 0000012 + A ;
+
+//un commentaire de test
+
 c1 = (a+10) * 12 * (-1) ; f = 5 ;
 d2 = (a*3 - 3 + c1*f) ;
 unNomDidentificateurTresLongPourEmbeterLesCompilateursDuLangagePlic = c1 ;

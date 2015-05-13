@@ -2,6 +2,7 @@ package plicCompiler.arbreAbstrait.instruction;
 
 import plicCompiler.arbreAbstrait.expression.Expression;
 import plicCompiler.arbreAbstrait.expression.Identificateur;
+import plicCompiler.exception.ListErreurSem;
 import plicCompiler.exception.SemanticsException;
 import plicCompiler.tDS.Symbole;
 import plicCompiler.tDS.TDS;
@@ -12,7 +13,8 @@ public class Affectation extends Instruction{
 	
 	private Expression expression;
 	
-	public Affectation(Identificateur identificateur, Expression e) {
+	public Affectation(Identificateur identificateur, Expression e, int ligne) {
+		super(ligne);
 		this.identificateur = identificateur;
 		this.expression = e;
 	}
@@ -32,12 +34,11 @@ public class Affectation extends Instruction{
 
 	@Override
 	public void check() throws SemanticsException {
-
 		this.expression.check();
 		this.identificateur.check();
 
 		if(expression.getType() != this.identificateur.getType())
-			throw new SemanticsException("les types ne concordent pas");
+			throw new SemanticsException("Le type de la variable et de l'expression ne correspondent pas", "0");
 		
 	}
 	

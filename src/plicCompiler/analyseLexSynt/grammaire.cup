@@ -1,8 +1,10 @@
 package plicCompiler.analyseLexSynt ;
 
 import java.util.ArrayList;
+
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
 import plicCompiler.arbreAbstrait.Classe;
+import plicCompiler.arbreAbstrait.instruction.Commentaire;
 import plicCompiler.arbreAbstrait.instruction.Declaration;
 import plicCompiler.arbreAbstrait.instruction.EcrireConstante;
 import plicCompiler.arbreAbstrait.instruction.EcrireIdentificateur;
@@ -25,6 +27,7 @@ import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparai
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparaison.GreaterThan;
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparaison.LowerThan;
 import plicCompiler.arbreAbstrait.expression.operation.operationBinaire.comparaison.Different;
+import plicCompiler.exception.SyntaxicException;
 import plicCompiler.tDS.Symbole;
 import plicCompiler.tDS.TDS;
 
@@ -41,7 +44,7 @@ parser code {:
     public void report_error(String message, Object info) {
    
         /* Create a StringBuffer called 'm' with the string 'Error' in it. */
-        StringBuffer m = new StringBuffer("ERREUR SYNTAXIQUE : ");
+        StringBuilder m = new StringBuilder();
    
         /* Check if the information passed to the method is the same type as the type 
            java_cup.runtime.Symbol. */
@@ -69,14 +72,21 @@ parser code {:
    
         /* Print the contents of the StringBuffer 'm', which contains an error message, out on 
            a line. */
-        System.err.println(m);
+        
     }
     /* Change the method report_fatal_error so when it reports a fatal error it will display the 
        line and column number of where the fatal error occurred in the input as well as the reason
        for the fatal error which is passed into the method in the object 'message' and then exit.*/
-    public void report_fatal_error(String message, Object info) {
-        report_error(message, info);
-        System.exit(1);
+    public void report_fatal_error(String message, Object info) throws SyntaxicException {
+    	String ligne = "";
+        java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
+        if (info instanceof java_cup.runtime.Symbol) {
+            if (s.left >= 0) {                
+                ligne = String.valueOf(s.left);
+            }
+        }
+        System.out.println("colon : " + s.right);
+        throw new SyntaxicException("Symbole inattendu", ligne);
     }
 :};
 /* ------------Declaration of Terminals and Non Terminals Section----------- */
@@ -114,9 +124,12 @@ terminal Symbol ENTIER;
 terminal Symbol ECRIREIDF;
 terminal Symbol LIREIDF;
 terminal Symbol CLASSEIDF;
+terminal Symbol COMMENTAIREIDF;
 
 terminal String CHAINE;
+terminal String CHAINEGUILL;
 terminal String IDF;
+
    
 /* Non terminals used in the grammar section.  
    Non terminals that have an object value are listed first and then non terminals that have an 
@@ -142,6 +155,8 @@ non terminal Ecrire ECRIRE;
 
 non terminal Expression EXPR;
 
+non terminal Commentaire COMM;
+
 precedence left PLUS, MINUS, DIFF, SUP, INF;
 precedence left MUL, DIV;
 precedence left EQUAL;
@@ -159,7 +174,6 @@ SYSTEME		::=		CLASSE:c
 
 CLASSE		::=		CLASSECLASSE IDF:idf LISTDECL:lst END
 					{:
-						//System.out.println("classe : " + idf);
 						TDS.getInstance().sortirBlock();
 						TDS.getInstance().ajouter(new Identificateur(idf), new Symbole(Symbole.Type.CLASS));
 						RESULT = new Classe(new Identificateur(idf), lst);
@@ -199,7 +213,7 @@ DECL_CHAMP	::=		STATUT:s TYPE:t LISTIDF:idfs
 					{:
 						//System.out.println("fhdqqslfhdskqhfjdk");
 						TDS.getInstance().ajouter(idfs, new Symbole(s, t));
-						RESULT = new Declaration(idfs);
+						RESULT = new Declaration(idfs, idfsleft+1);
 					:}
 			;
 			
@@ -249,23 +263,23 @@ INSTRUCTION	::=		AFFECT:aff
 
 AFFECT		::=		IDF:idf AFFECTIDF EXPR:e 
 					{:
-						RESULT = new Affectation(new Identificateur(idf), e);
+						RESULT = new Affectation(new Identificateur(idf), e, idfleft+1);
 					:}
 			;
 
 LIRE		::=		LIREIDF IDF:idf 
 					{:
-						RESULT = new Lire(new Identificateur(idf));
+						RESULT = new Lire(new Identificateur(idf), idfleft+1);
 					:}
 			;
 
 ECRIRE		::=		ECRIREIDF IDF:idf 
 					{:
-						RESULT = new EcrireIdentificateur(new Identificateur(idf));
+						RESULT = new EcrireIdentificateur(new Identificateur(idf), idfleft+1);
 					:}
-			|		ECRIREIDF CHAINE:c 
+			|		ECRIREIDF CHAINEGUILL:c 
 					{:
-						RESULT = new EcrireConstante(new ConstanteChaine(c));
+						RESULT = new EcrireConstante(new ConstanteChaine(c), cleft+1);
 					:}
 			;
 			

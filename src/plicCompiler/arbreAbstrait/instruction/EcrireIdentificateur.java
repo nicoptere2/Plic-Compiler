@@ -1,6 +1,7 @@
 package plicCompiler.arbreAbstrait.instruction;
 
 import plicCompiler.arbreAbstrait.expression.Identificateur;
+import plicCompiler.exception.ListErreurSem;
 import plicCompiler.exception.SemanticsException;
 
 
@@ -8,7 +9,8 @@ public class EcrireIdentificateur extends Ecrire{
 	
 	private Identificateur identificateur;
 
-	public EcrireIdentificateur(Identificateur expression) {
+	public EcrireIdentificateur(Identificateur expression, int ligne) {
+		super(ligne);
 		this.identificateur = expression;
 	}
 	

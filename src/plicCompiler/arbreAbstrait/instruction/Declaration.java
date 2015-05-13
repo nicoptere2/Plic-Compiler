@@ -8,7 +8,8 @@ public class Declaration extends Instruction{
 	
 	private ArrayList<Identificateur> identifiants;
 
-	public Declaration(ArrayList<Identificateur> idfs) {
+	public Declaration(ArrayList<Identificateur> idfs, int ligne) {
+		super(ligne);
 		identifiants = idfs;
 	}
 	

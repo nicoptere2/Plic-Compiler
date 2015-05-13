@@ -3,6 +3,7 @@ package plicCompiler.arbreAbstrait.instruction;
 import java.util.ArrayList;
 
 import plicCompiler.arbreAbstrait.ArbreAbstrait;
+import plicCompiler.exception.ListErreurSem;
 import plicCompiler.exception.SemanticsException;
 
 public class ListeInstruction {
@@ -33,8 +34,14 @@ public class ListeInstruction {
 		return s.toString();
 	}
 
-	public void check() throws SemanticsException {
-		for(Instruction i: instructions)
-			i.check();
+	public void check() {
+		for(Instruction i: instructions){
+			try {
+				i.check();
+			} catch (SemanticsException e) {
+				ListErreurSem.getInstance().add(e.getMessage(), String.valueOf(i.getLigne()));
+				continue;
+			}
+		}
 	}
 }

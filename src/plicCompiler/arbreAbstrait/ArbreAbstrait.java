@@ -1,5 +1,7 @@
 package plicCompiler.arbreAbstrait;
 
+import plicCompiler.exception.SemanticsException;
+
 public class ArbreAbstrait {
 	
 	public ArbreAbstrait() {
@@ -10,7 +12,7 @@ public class ArbreAbstrait {
 		return "\n";
 	}
 
-	public void check() throws Exception {
+	public void check() throws SemanticsException{
 	}
 	
 	@Override

@@ -29,6 +29,8 @@ import java_cup.runtime.*;
 
 %state commentaire
 
+commentaireSlashSlash = [/][/].*\n
+
 number = [0-9]
 lettre = [a-zA-Z]
 idf = [a-zA-Z]([a-z|A-Z|0-9])*
@@ -56,6 +58,8 @@ parfer	= \)
 
 ";"							{ return symbol(CodesLexicaux.POINTVIRGULE); }
 ","							{ return symbol(CodesLexicaux.VIRGULE); }
+
+{commentaireSlashSlash}		{}
 
 {parouv}					{ return symbol(CodesLexicaux.PAROUV); }
 
@@ -100,7 +104,7 @@ lire						{ return symbol(CodesLexicaux.LIREIDF); }
 
 classe						{ return symbol(CodesLexicaux.CLASSEIDF); }
 
-\".*\"						{ return symbol(CodesLexicaux.CHAINE, yytext()); } 
+\".*\"						{ return symbol(CodesLexicaux.CHAINEGUILL, yytext()); } 
 
 {idf}						{ return symbol(CodesLexicaux.IDF, yytext()); }
 

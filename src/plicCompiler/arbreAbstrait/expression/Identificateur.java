@@ -36,6 +36,8 @@ public class Identificateur extends Expression{
 	@Override
 	public void check() throws SemanticsException {
 		symbole = TDS.getInstance().identifier(this);
+		if(symbole == null)
+			throw new SemanticsException("Identificateur '" + this.identificateur +"' non déclaré", "0");
 		this.type = symbole.getType();
 	}
 	

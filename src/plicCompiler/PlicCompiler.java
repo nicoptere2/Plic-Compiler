@@ -38,8 +38,7 @@ public class PlicCompiler {
 			
 			
 		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Erreur Analyse LexSynt");
+			System.out.println(e.getMessage());
 			System.exit(1);
 		}
 		

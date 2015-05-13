@@ -1,6 +1,7 @@
 package plicCompiler.arbreAbstrait.instruction;
 
 import plicCompiler.arbreAbstrait.expression.Identificateur;
+import plicCompiler.exception.ListErreurSem;
 import plicCompiler.exception.SemanticsException;
 import plicCompiler.tDS.TDS;
 
@@ -8,7 +9,8 @@ public class Lire extends Instruction {
 	
 	private Identificateur variable;
 	
-	public Lire(Identificateur variable) {
+	public Lire(Identificateur variable, int ligne) {
+		super(ligne);
 		this.variable = variable;
 	}
 	
