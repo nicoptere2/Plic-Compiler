@@ -1,15 +1,16 @@
 package plicCompiler.arbreAbstrait.instruction;
 
+import plicCompiler.arbreAbstrait.expression.Expression;
 import plicCompiler.arbreAbstrait.expression.Identificateur;
 import plicCompiler.exception.SemanticsException;
 
 
 public class EcrireIdentificateur extends Ecrire{
 	
-	private Identificateur identificateur;
+	private Expression expression;
 
-	public EcrireIdentificateur(Identificateur expression) {
-		this.identificateur = expression;
+	public EcrireIdentificateur(Expression expression) {
+		this.expression = expression;
 	}
 	
 
@@ -17,8 +18,8 @@ public class EcrireIdentificateur extends Ecrire{
 	public String toCode() {
 		StringBuilder s = new StringBuilder();
 		
-		s.append("#Ecriture de la valeur de la variabel '" + identificateur + "' \n");
-		s.append(identificateur.toCode());
+		s.append("#Ecriture de la valeur de la variabel '" + expression + "' \n");
+		s.append(expression.toCode());
 		s.append("move $a0, $v0\n");
 		s.append("li $v0 , 1\n");
 		s.append("syscall\n");
@@ -28,12 +29,12 @@ public class EcrireIdentificateur extends Ecrire{
 
 	@Override
 	public void check() throws SemanticsException {
-		this.identificateur.check();
+		this.expression.check();
 	}
 	
 	@Override
 	public String toString() {
-		return "ecrire (" + identificateur.toString() + ")\n";
+		return "ecrire (" + expression.toString() + ")\n";
 	}
 
 }

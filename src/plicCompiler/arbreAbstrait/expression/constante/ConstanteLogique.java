@@ -11,7 +11,7 @@ public class ConstanteLogique extends Constante{
 	
 	@Override
 	public void check() {
-		this.type = Symbole.Type.ENTIER;
+		this.type = Symbole.Type.BOOL;
 	}
 
 }

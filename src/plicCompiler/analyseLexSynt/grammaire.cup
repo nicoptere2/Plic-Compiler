@@ -259,9 +259,9 @@ LIRE		::=		LIREIDF IDF:idf
 					:}
 			;
 
-ECRIRE		::=		ECRIREIDF IDF:idf 
+ECRIRE		::=		ECRIREIDF EXPR:e 
 					{:
-						RESULT = new EcrireIdentificateur(new Identificateur(idf));
+						RESULT = new EcrireIdentificateur(new Expression(e));
 					:}
 			|		ECRIREIDF CHAINE:c 
 					{:
