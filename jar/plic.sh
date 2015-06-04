@@ -4,8 +4,14 @@ path=$(pwd)
 
 if [ $# -eq 2 ] 
 then
+<<<<<<< HEAD
 
 	if [ -e plicCompiler.jar ]
+=======
+	outFile=$(echo $2 | sed -r 's/.plic/.asm/g')
+	java -jar $1 $2 $outFile
+	if [ ' ' != $MARSPATH ]
+>>>>>>> b99c2e583cb425f00ce31739f0bd44526c99f0d3
 	then
 		outFile=$(echo $1 | sed -r 's/.plic/.asm/g')
 		echo $outFile

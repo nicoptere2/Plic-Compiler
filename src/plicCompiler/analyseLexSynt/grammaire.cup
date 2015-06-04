@@ -272,9 +272,8 @@ LIRE		::=		LIREIDF IDF:idf
 					:}
 			;
 
-ECRIRE		::=		ECRIREIDF IDF:idf 
-					{:
-						RESULT = new EcrireIdentificateur(new Identificateur(idf), idfleft+1);
+ECRIRE		::=		ECRIREIDF EXPR:e 
+						RESULT = new EcrireIdentificateur(new Expression(e));
 					:}
 			|		ECRIREIDF CHAINEGUILL:c 
 					{:

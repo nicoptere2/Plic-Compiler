@@ -18,8 +18,8 @@
             </manifest>
             <fileset dir="${build.dir}"/>
             <fileset dir="${source.dir}"/>
-            <zipfileset excludes="META-INF/*.SF" src="/home/nico/Programmation/Java/Plic-Compiler/java-cup-11a.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="/home/nico/Programmation/Java/Plic-Compiler/jflex-1.4.3.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="/home/nico/Programmation/Java/plic-compiler/java-cup.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="/home/nico/Programmation/Java/plic-compiler/jFlex.jar"/>
         </jar>
     </target>
 </project>

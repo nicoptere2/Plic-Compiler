@@ -62,7 +62,7 @@
   <java classname="JFlex.Main" fork="yes" failonerror="yes" >
     <arg line="${src}/AnalyseurLexical.jflex" />
     <classpath>
-        <pathelement path="${java.class.path}:src/plicCompiler/analyseLexSynt/jflex.jar" />
+        <pathelement path="${java.class.path}:src/plicCompiler/analyseLexSynt/jFlex.jar" />
     </classpath>
   </java>
 </target>
